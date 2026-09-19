@@ -44,13 +44,28 @@ export class AnalyticsController {
   }
 
   @Get('heartbeats')
-  @ApiOperation({ summary: 'Get recent live telemetry heartbeats stream' })
-  @ApiQuery({ name: 'limit', required: false, type: Number, description: 'Number of heartbeats (default: 50, max: 200)', example: 50 })
-  @ApiResponse({ status: 200, description: 'List of recent heartbeats' })
-  async getHeartbeats(@Query('limit') limit?: string) {
-    const limitNum = limit ? parseInt(limit, 10) : 50;
-    return this.analyticsService.getRecentHeartbeats(
-      Number.isInteger(limitNum) && limitNum > 0 ? limitNum : 50,
+  @ApiOperation({ summary: 'Get paginated telemetry heartbeats stream with search and filters' })
+  @ApiQuery({ name: 'page', required: false, type: Number, description: 'Page number (default: 1)', example: 1 })
+  @ApiQuery({ name: 'limit', required: false, type: Number, description: 'Number of heartbeats per page (default: 20, max: 100)', example: 20 })
+  @ApiQuery({ name: 'search', required: false, type: String, description: 'Search term for device UUID, model, or provider' })
+  @ApiQuery({ name: 'shieldEnabled', required: false, type: String, description: 'Filter by shield status ("true" | "false")' })
+  @ApiQuery({ name: 'provider', required: false, type: String, description: 'Filter by DNS provider name' })
+  @ApiResponse({ status: 200, description: 'Paginated telemetry heartbeats' })
+  async getHeartbeats(
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
+    @Query('search') search?: string,
+    @Query('shieldEnabled') shieldEnabled?: string,
+    @Query('provider') provider?: string,
+  ) {
+    const pageNum = page ? parseInt(page, 10) : 1;
+    const limitNum = limit ? parseInt(limit, 10) : 20;
+    return this.analyticsService.getHeartbeatsPaginated(
+      Number.isInteger(pageNum) && pageNum > 0 ? pageNum : 1,
+      Number.isInteger(limitNum) && limitNum > 0 ? limitNum : 20,
+      search,
+      shieldEnabled,
+      provider,
     );
   }
 }

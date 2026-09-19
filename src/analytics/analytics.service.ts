@@ -9,7 +9,6 @@ export class AnalyticsService {
     const now = new Date();
     const oneDayAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000);
     const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
-    const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
 
     // 1. Device Counts
     const totalDevices = await this.prisma.device.count();
@@ -181,6 +180,78 @@ export class AnalyticsService {
         limit: validLimit,
         totalPages: 0,
         devices: [],
+      };
+    }
+  }
+
+  async getHeartbeatsPaginated(
+    page: number = 1,
+    limit: number = 20,
+    search?: string,
+    shieldEnabled?: string,
+    provider?: string,
+  ) {
+    const validPage = Number.isInteger(page) && page > 0 ? page : 1;
+    const validLimit = Number.isInteger(limit) && limit > 0 ? Math.min(limit, 100) : 20;
+    const skip = (validPage - 1) * validLimit;
+
+    const where: any = {};
+    if (shieldEnabled === 'true') {
+      where.shieldEnabled = true;
+    } else if (shieldEnabled === 'false') {
+      where.shieldEnabled = false;
+    }
+
+    if (provider && provider.trim()) {
+      where.selectedProvider = { contains: provider.trim(), mode: 'insensitive' };
+    }
+
+    if (search && search.trim()) {
+      const q = search.trim();
+      where.OR = [
+        { deviceId: { contains: q, mode: 'insensitive' } },
+        { device: { deviceModel: { contains: q, mode: 'insensitive' } } },
+        { device: { countryCode: { contains: q, mode: 'insensitive' } } },
+        { selectedProvider: { contains: q, mode: 'insensitive' } },
+      ];
+    }
+
+    try {
+      const [total, heartbeats] = await Promise.all([
+        this.prisma.heartbeat.count({ where }),
+        this.prisma.heartbeat.findMany({
+          where,
+          skip,
+          take: validLimit,
+          orderBy: { timestamp: 'desc' },
+          include: {
+            device: {
+              select: {
+                deviceModel: true,
+                osVersion: true,
+                countryCode: true,
+                appVersion: true,
+              },
+            },
+          },
+        }),
+      ]);
+
+      return {
+        total: total || 0,
+        page: validPage,
+        limit: validLimit,
+        totalPages: Math.ceil((total || 0) / validLimit),
+        heartbeats: heartbeats || [],
+      };
+    } catch (err: any) {
+      console.error('AnalyticsService.getHeartbeatsPaginated error:', err);
+      return {
+        total: 0,
+        page: validPage,
+        limit: validLimit,
+        totalPages: 0,
+        heartbeats: [],
       };
     }
   }
