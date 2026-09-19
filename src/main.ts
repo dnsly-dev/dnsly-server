@@ -2,13 +2,16 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import * as cookieParser from 'cookie-parser';
+import cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   // Enable cookie parser for admin dashboard authentication
-  app.use(cookieParser());
+  const parseCookie = typeof cookieParser === 'function' ? cookieParser : (cookieParser as any).default;
+  if (typeof parseCookie === 'function') {
+    app.use(parseCookie());
+  }
 
   // Global Validation Pipe for Request DTOs
   app.useGlobalPipes(

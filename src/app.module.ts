@@ -9,6 +9,8 @@ import { RemoteConfigModule } from './config/remote-config.module';
 import { AnalyticsModule } from './analytics/analytics.module';
 import { AdminModule } from './admin/admin.module';
 
+import { AppController } from './app.controller';
+
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -29,6 +31,7 @@ import { AdminModule } from './admin/admin.module';
     AnalyticsModule,
     AdminModule,
   ],
+  controllers: [AppController],
   providers: [
     {
       provide: APP_GUARD,

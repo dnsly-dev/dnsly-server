@@ -4,14 +4,18 @@ import { ExpressAdapter } from '@nestjs/platform-express';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import express, { Request, Response } from 'express';
-import * as cookieParser from 'cookie-parser';
+import cookieParser from 'cookie-parser';
 
 const server = express();
 let isInitialized = false;
 
 async function bootstrapServerless() {
   if (!isInitialized) {
-    server.use(cookieParser());
+    const parseCookie = typeof cookieParser === 'function' ? cookieParser : (cookieParser as any).default;
+    if (typeof parseCookie === 'function') {
+      server.use(parseCookie());
+    }
+
     const app = await NestFactory.create(AppModule, new ExpressAdapter(server));
 
     app.useGlobalPipes(
