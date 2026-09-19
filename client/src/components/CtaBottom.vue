@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { PhDownloadSimple, PhShieldCheck, PhCheckCircle } from '@phosphor-icons/vue'
+import { PhDownloadSimple, PhCheckCircle } from '@phosphor-icons/vue'
 </script>
 
 <template>
@@ -14,11 +14,6 @@ import { PhDownloadSimple, PhShieldCheck, PhCheckCircle } from '@phosphor-icons/
     </div>
 
     <div class="relative max-w-4xl mx-auto px-4 sm:px-6 py-16 sm:py-24 text-center">
-      <!-- Shield Icon Badge -->
-      <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center mx-auto mb-6 border border-white/20 shadow-xl text-white">
-        <PhShieldCheck :size="32" weight="fill" />
-      </div>
-
       <h2 id="cta-heading" class="text-2xl sm:text-4xl lg:text-[2.6rem] font-extrabold text-white tracking-tight mb-4 leading-tight">
         Protect Your Device Today
       </h2>

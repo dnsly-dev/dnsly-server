@@ -3,7 +3,7 @@ import { PhShieldCheck } from '@phosphor-icons/vue'
 </script>
 
 <template>
-  <footer class="w-full bg-white border-t border-slate-200/80 pt-14 pb-12" role="contentinfo">
+  <footer class="w-full bg-slate-50 border-t border-slate-200/80 pt-14 pb-12" role="contentinfo">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="flex flex-col md:flex-row md:items-start justify-between gap-10 sm:gap-12 mb-12">
         <!-- Brand Column -->
