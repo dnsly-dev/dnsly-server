@@ -14,6 +14,7 @@
     "client:install": "npm --prefix client install",
     "vercel-build": "npm --prefix client install && npm --prefix client run build && prisma generate && nest build",
     "format": "prettier --write \"src/**/*.ts\"",
+    "dev": "nest start --watch",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
