@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { PhShieldCheck, PhGithubLogo, PhArrowSquareOut } from '@phosphor-icons/vue'
+import { PhShieldCheck, PhArrowSquareOut } from '@phosphor-icons/vue'
 </script>
 
 <template>
@@ -17,7 +17,7 @@ import { PhShieldCheck, PhGithubLogo, PhArrowSquareOut } from '@phosphor-icons/v
             </span>
           </a>
           <p class="text-xs text-slate-500 leading-relaxed max-w-sm mb-4">
-            On-device DNS firewall and ad-blocking engine for Android. Zero latency, 0 cloud logging.
+            On-device DNS firewall and tracker blocking engine for Android. Zero latency, 0 cloud logging.
           </p>
 
           <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-[11px] font-bold text-emerald-700">
@@ -28,7 +28,7 @@ import { PhShieldCheck, PhGithubLogo, PhArrowSquareOut } from '@phosphor-icons/v
 
         <!-- Product Links -->
         <div class="sm:col-span-1 md:col-span-1">
-          <h3 class="text-[11px] font-extrabold uppercase tracking-wider text-slate-900 mb-3">Product</h3>
+          <h3 class="text-[11px] font-bold uppercase tracking-wider text-slate-900 mb-3">Product</h3>
           <ul class="space-y-2 text-xs" role="list">
             <li><a href="#how-it-works" class="text-slate-500 hover:text-blue-600 transition-colors font-medium">How It Works</a></li>
             <li><a href="#features" class="text-slate-500 hover:text-blue-600 transition-colors font-medium">Features</a></li>
@@ -40,7 +40,7 @@ import { PhShieldCheck, PhGithubLogo, PhArrowSquareOut } from '@phosphor-icons/v
 
         <!-- Management & API Links -->
         <div class="sm:col-span-1 md:col-span-1">
-          <h3 class="text-[11px] font-extrabold uppercase tracking-wider text-slate-900 mb-3">Platform</h3>
+          <h3 class="text-[11px] font-bold uppercase tracking-wider text-slate-900 mb-3">Platform</h3>
           <ul class="space-y-2 text-xs" role="list">
             <li>
               <router-link to="/admin" class="text-slate-500 hover:text-blue-600 transition-colors font-semibold">
@@ -60,18 +60,10 @@ import { PhShieldCheck, PhGithubLogo, PhArrowSquareOut } from '@phosphor-icons/v
       <!-- Bottom Bar -->
       <div class="pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left text-xs text-slate-400 font-medium">
         <div>
-          © {{ new Date().getFullYear() }} DNSly. Open-source under MIT License.
+          © {{ new Date().getFullYear() }} DNSly. All rights reserved.
         </div>
         <div>
-          <a
-            href="https://github.com/dnsly-dev"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="DNSly GitHub Organization"
-            class="w-8 h-8 rounded-lg bg-slate-50 hover:bg-blue-50 text-slate-500 hover:text-blue-600 inline-flex items-center justify-center transition-colors border border-slate-200"
-          >
-            <PhGithubLogo :size="16" weight="bold" />
-          </a>
+          <span class="text-[11px] text-slate-400 font-medium">On-Device Privacy</span>
         </div>
       </div>
     </div>

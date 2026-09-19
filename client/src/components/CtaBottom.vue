@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { PhDownloadSimple, PhGithubLogo, PhShieldCheck, PhCheckCircle } from '@phosphor-icons/vue'
+import { PhDownloadSimple, PhShieldCheck, PhCheckCircle } from '@phosphor-icons/vue'
 </script>
 
 <template>
@@ -20,10 +20,10 @@ import { PhDownloadSimple, PhGithubLogo, PhShieldCheck, PhCheckCircle } from '@p
       </div>
 
       <h2 id="cta-heading" class="text-2xl sm:text-4xl lg:text-[2.6rem] font-extrabold text-white tracking-tight mb-4 leading-tight">
-        Ready to Reclaim Your Browsing Privacy?
+        Protect Your Device Today
       </h2>
-      <p class="text-sm sm:text-base lg:text-lg text-blue-100/90 mb-8 max-w-xl mx-auto leading-relaxed font-normal">
-        Protect your mobile device against intrusive ads, surveillance telemetry, phishing, and malware threats in seconds. Free forever.
+      <p class="text-base sm:text-lg text-blue-100/90 mb-8 max-w-xl mx-auto leading-relaxed font-normal">
+        Protect your mobile device against intrusive ads, surveillance telemetry, phishing, and malware threats in seconds.
       </p>
 
       <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3.5 mb-8">
@@ -31,35 +31,25 @@ import { PhDownloadSimple, PhGithubLogo, PhShieldCheck, PhCheckCircle } from '@p
           href="https://github.com/dnsly-dev/dnsly-app/releases"
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-xs sm:text-sm font-extrabold bg-white text-blue-700 shadow-xl hover:bg-slate-50 transition-all hover:-translate-y-0.5 active:translate-y-0 select-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+          class="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl text-sm font-bold bg-white text-blue-700 shadow-xl hover:bg-slate-50 transition-all hover:-translate-y-0.5 active:translate-y-0 select-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
         >
           <PhDownloadSimple :size="18" weight="bold" />
           <span>Download Android APK</span>
         </a>
-
-        <a
-          href="https://github.com/dnsly-dev/dnsly-app"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl text-xs sm:text-sm font-bold text-white bg-white/10 hover:bg-white/20 border border-white/25 transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-        >
-          <PhGithubLogo :size="18" weight="bold" />
-          <span>View Source Code</span>
-        </a>
       </div>
 
       <!-- Trust Features Row -->
-      <div class="flex items-center justify-center gap-x-6 gap-y-2 flex-wrap text-xs text-blue-100 font-semibold">
+      <div class="flex items-center justify-center gap-x-6 gap-y-2.5 flex-wrap text-xs sm:text-sm text-blue-100 font-medium">
         <div class="flex items-center gap-1.5">
-          <PhCheckCircle :size="15" weight="fill" class="text-blue-300" />
+          <PhCheckCircle :size="16" weight="fill" class="text-blue-300" />
           <span>No Account Required</span>
         </div>
         <div class="flex items-center gap-1.5">
-          <PhCheckCircle :size="15" weight="fill" class="text-blue-300" />
-          <span>100% Open-Source (MIT)</span>
+          <PhCheckCircle :size="16" weight="fill" class="text-blue-300" />
+          <span>On-Device Processing</span>
         </div>
         <div class="flex items-center gap-1.5">
-          <PhCheckCircle :size="15" weight="fill" class="text-blue-300" />
+          <PhCheckCircle :size="16" weight="fill" class="text-blue-300" />
           <span>Zero Telemetry Logs</span>
         </div>
       </div>

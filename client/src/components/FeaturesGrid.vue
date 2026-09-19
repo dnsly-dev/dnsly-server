@@ -11,13 +11,13 @@ import {
       <div class="text-center mb-12 sm:mb-16">
         <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-bold uppercase tracking-wider mb-3">
           <PhSparkle :size="15" weight="fill" />
-          <span>Core Capabilities</span>
+          <span>Features</span>
         </div>
         <h2 id="features-heading" class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">
-          Everything You Need for Complete Protection
+          Complete Device Protection
         </h2>
         <p class="text-sm sm:text-base text-slate-500 max-w-2xl mx-auto leading-relaxed">
-          Curated threat feeds, encrypted DNS, and on-device filtering — all packaged in one lightweight, battery-friendly engine.
+          Curated threat feeds, encrypted DNS switching, and local filtering built directly into a lightweight engine.
         </p>
       </div>
 
@@ -35,21 +35,21 @@ import {
             </div>
             
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-[11px] font-bold uppercase tracking-wider mb-3.5 border border-blue-500/30">
-              Multi-Source Threat Intelligence
+              Threat Intelligence
             </div>
 
             <h3 class="text-xl sm:text-3xl font-extrabold text-white mb-3 tracking-tight">
-              Threat Protection & Malware Sinkhole
+              Malware & Phishing Protection
             </h3>
             <p class="text-slate-300 leading-relaxed max-w-xl text-xs sm:text-sm font-normal">
-              Block malware, phishing campaigns, ransomware C2 infrastructure, botnets, and cryptojacking scripts. Domains are sinkholed at the socket level before payloads can ever reach your system.
+              Block malware, phishing campaigns, ransomware infrastructure, botnets, and cryptojacking scripts. Domains are sinkholed at the socket level before payloads can reach your device.
             </p>
           </div>
 
           <!-- Feature Tags -->
           <div class="relative z-10 flex flex-wrap gap-2 pt-6 mt-6 border-t border-slate-800 text-xs">
-            <span class="px-3 py-1.5 rounded-xl bg-white/5 text-slate-300 border border-white/10 font-semibold">22+ Security Feeds</span>
-            <span class="px-3 py-1.5 rounded-xl bg-white/5 text-slate-300 border border-white/10 font-semibold">C2 Botnet Blocking</span>
+            <span class="px-3 py-1.5 rounded-xl bg-white/5 text-slate-300 border border-white/10 font-semibold">Automated Security Feeds</span>
+            <span class="px-3 py-1.5 rounded-xl bg-white/5 text-slate-300 border border-white/10 font-semibold">Botnet Blocking</span>
             <span class="px-3 py-1.5 rounded-xl bg-white/5 text-slate-300 border border-white/10 font-semibold">Phishing Sinkhole</span>
             <span class="px-3 py-1.5 rounded-xl bg-white/5 text-slate-300 border border-white/10 font-semibold">Zero Cloud Logging</span>
           </div>
@@ -63,11 +63,11 @@ import {
             </div>
             <h3 class="text-base sm:text-lg font-bold text-slate-900 mb-2">Ad & Tracker Blocking</h3>
             <p class="text-xs sm:text-sm text-slate-500 leading-relaxed">
-              Sinkhole intrusive advertising networks, tracking telemetry SDKs, and CNAME-cloaked third-party surveillance scripts.
+              Sinkhole intrusive advertising networks, tracking telemetry SDKs, and third-party surveillance scripts across all installed applications.
             </p>
           </div>
           <div class="mt-6 pt-4 border-t border-slate-200/80 flex items-center justify-between text-xs font-semibold">
-            <span class="text-violet-700 font-bold">99.8% Sinkhole Accuracy</span>
+            <span class="text-violet-700 font-bold">System-Wide</span>
             <span class="text-slate-400">All Apps</span>
           </div>
         </div>
@@ -80,7 +80,7 @@ import {
             </div>
             <h3 class="text-base sm:text-lg font-bold text-slate-900 mb-2">Parental & Family Safety</h3>
             <p class="text-xs sm:text-sm text-slate-500 leading-relaxed">
-              Block adult NSFW content, gambling, and dangerous sites. Automatically enforce Google SafeSearch and YouTube Restricted Mode.
+              Block adult NSFW content, gambling, and dangerous sites. Automatically enforce SafeSearch and YouTube Restricted Mode.
             </p>
           </div>
           <div class="mt-6 pt-4 border-t border-slate-200/80 flex items-center justify-between text-xs font-semibold">
@@ -98,9 +98,9 @@ import {
             <div class="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center mb-5 border border-white/20">
               <PhLightning :size="24" weight="duotone" />
             </div>
-            <h3 class="text-base sm:text-lg font-bold mb-2">Zero Latency Engine</h3>
+            <h3 class="text-base sm:text-lg font-bold mb-2">Local Processing Engine</h3>
             <p class="text-xs sm:text-sm text-blue-100 leading-relaxed">
-              Direct in-memory sinkholing with 0 ms query latency. No remote round-trips, no VPN encapsulation overhead.
+              Direct in-memory sinkholing with sub-millisecond query evaluation. No remote round-trips or VPN tunneling bottlenecks.
             </p>
           </div>
           <div class="relative z-10 mt-6 pt-4 border-t border-white/20 flex items-center justify-between text-xs">
@@ -117,7 +117,7 @@ import {
             </div>
             <h3 class="text-base sm:text-lg font-bold text-slate-900 mb-2">Encrypted DNS-over-HTTPS</h3>
             <p class="text-xs sm:text-sm text-slate-500 leading-relaxed">
-              Switch seamlessly between Cloudflare, Quad9, AdGuard, and NextDNS — or specify your own private DoH resolver.
+              Switch seamlessly between Cloudflare, Quad9, AdGuard, and NextDNS — or specify your own custom upstream resolver.
             </p>
           </div>
           <div class="mt-6 pt-4 border-t border-slate-200/80 flex items-center gap-1.5 flex-wrap">
@@ -134,18 +134,16 @@ import {
             <PhListBullets :size="26" weight="duotone" />
           </div>
           <div class="text-center md:text-left flex-1">
-            <h3 class="text-lg sm:text-xl font-bold text-slate-900 mb-2">Custom Blocklists & Wildcard Rule Engine</h3>
+            <h3 class="text-lg sm:text-xl font-bold text-slate-900 mb-2">Custom Blocklists & Wildcard Rules</h3>
             <p class="text-xs sm:text-sm text-slate-500 leading-relaxed max-w-2xl">
-              Import third-party hosts files, subscribe to external security feeds, and create individual allowlist/denylist rules with full subdomain wildcard (*.domain.com) support.
+              Import hosts files, subscribe to security feeds, and create individual allowlist/denylist rules with full subdomain wildcard matching.
             </p>
           </div>
           <a
-            href="https://github.com/dnsly-dev/dnsly-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#download"
             class="shrink-0 inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white border border-slate-200 hover:border-blue-300 text-xs font-bold text-slate-700 group-hover:text-blue-600 transition-all shadow-2xs"
           >
-            <span>Learn More on GitHub</span>
+            <span>Download APK</span>
             <PhArrowRight :size="14" weight="bold" class="group-hover:translate-x-0.5 transition-transform" />
           </a>
         </div>

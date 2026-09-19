@@ -68,13 +68,11 @@ const links = [
         </router-link>
 
         <a
-          href="https://github.com/dnsly-dev/dnsly-app/releases"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-extrabold text-blue-700 bg-white hover:bg-slate-50 shadow-sm hover:shadow-md transition-all hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+          href="#download"
+          class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold text-blue-700 bg-white hover:bg-slate-50 shadow-sm hover:shadow-md transition-all hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
         >
           <PhDownloadSimple :size="16" weight="bold" />
-          <span>Download Free</span>
+          <span>Download APK</span>
         </a>
 
         <!-- Mobile Toggle Button (Min 44x44px Touch Target) -->
@@ -119,18 +117,16 @@ const links = [
               @click="isMobileOpen = false"
             >
               <PhUserGear :size="16" weight="bold" />
-              <span>Admin Management Console</span>
+              <span>Admin Console</span>
             </router-link>
 
             <a
-              href="https://github.com/dnsly-dev/dnsly-app/releases"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="w-full py-3.5 px-4 rounded-xl text-center text-xs font-extrabold text-white bg-blue-600 hover:bg-blue-500 shadow-md shadow-blue-500/25 transition-all flex items-center justify-center gap-2"
+              href="#download"
+              class="w-full py-3.5 px-4 rounded-xl text-center text-xs font-bold text-white bg-blue-600 hover:bg-blue-500 shadow-md shadow-blue-500/25 transition-all flex items-center justify-center gap-2"
               @click="isMobileOpen = false"
             >
               <PhDownloadSimple :size="16" weight="bold" />
-              <span>Download Free Android APK</span>
+              <span>Download APK</span>
             </a>
           </div>
         </nav>

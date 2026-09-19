@@ -14,27 +14,27 @@ import {
 const steps = [
   {
     step: '01',
-    title: 'Download Free APK',
-    description: 'Grab the lightweight open-source APK directly from GitHub Releases. No account, no credit card, and zero tracking telemetry required.',
-    tag: 'No Account Needed',
+    title: 'Download APK',
+    description: 'Download and install the DNSly Android application directly on your device. No account or registration required.',
+    tag: 'Instant Setup',
     tagClass: 'bg-blue-50 text-blue-700 border-blue-200',
     icon: PhDownloadSimple,
     iconBg: 'bg-blue-600 text-white shadow-md',
   },
   {
     step: '02',
-    title: 'One-Tap Local Shield',
-    description: 'Turn on protection with a single tap. DNSly establishes an on-device local loopback firewall to filter DNS traffic before packets ever leave your hardware.',
-    tag: 'Zero Cloud Overhead',
+    title: 'Enable Local Firewall',
+    description: 'Turn on protection with a single tap. DNSly establishes an on-device local loopback firewall to filter DNS traffic before packets leave your hardware.',
+    tag: 'Local Processing',
     tagClass: 'bg-emerald-50 text-emerald-700 border-emerald-200',
     icon: PhToggleRight,
     iconBg: 'bg-emerald-600 text-white shadow-md',
   },
   {
     step: '03',
-    title: 'Browse Free of Ads & Threats',
+    title: 'Browse Securely',
     description: 'Intrusive ads, tracking cookies, phishing links, and malware are sinkholed silently across all mobile browsers and installed apps.',
-    tag: '22+ Threat Feeds',
+    tag: 'Automated Feeds',
     tagClass: 'bg-indigo-50 text-indigo-700 border-indigo-200',
     icon: PhShieldCheck,
     iconBg: 'bg-indigo-600 text-white shadow-md',
@@ -45,7 +45,7 @@ const trustBadges = [
   { text: 'No Root Required', icon: PhCheckCircle },
   { text: '100% On-Device (0 Cloud Logs)', icon: PhLockKey },
   { text: 'Sub-Millisecond Query Cache', icon: PhLightning },
-  { text: '100% Open Source (MIT)', icon: PhCpu },
+  { text: 'Zero Data Collection', icon: PhCpu },
 ]
 </script>
 
@@ -56,14 +56,13 @@ const trustBadges = [
       <div class="text-center max-w-2xl mx-auto mb-14 sm:mb-16">
         <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-bold uppercase tracking-wider mb-3">
           <PhSparkle :size="15" weight="fill" />
-          <span>Simple 3-Step Setup</span>
+          <span>Simple Setup</span>
         </div>
         <h2 id="how-it-works-heading" class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">
-          How DNSly Protects You in Seconds
+          How DNSly Protects You
         </h2>
         <p class="text-sm sm:text-base text-slate-500 leading-relaxed">
-          No complex VPN server configurations, no paid subscriptions, and zero cloud dependencies.
-          Instant system-wide defense right out of the box.
+          No complex VPN server setup, no account creation, and zero cloud dependencies. Instant defense directly on your device.
         </p>
       </div>
 
@@ -88,7 +87,7 @@ const trustBadges = [
               </span>
             </div>
 
-            <div class="inline-block text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-full border mb-3" :class="item.tagClass">
+            <div class="inline-block text-[10px] font-bold uppercase px-2.5 py-1 rounded-full border mb-3" :class="item.tagClass">
               {{ item.tag }}
             </div>
 
@@ -116,7 +115,7 @@ const trustBadges = [
         <div
           v-for="badge in trustBadges"
           :key="badge.text"
-          class="flex items-center gap-2 text-xs sm:text-sm font-bold text-slate-700"
+          class="flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-700"
         >
           <component :is="badge.icon" :size="18" weight="fill" class="text-blue-600 shrink-0" />
           <span>{{ badge.text }}</span>
@@ -126,12 +125,10 @@ const trustBadges = [
       <!-- Action CTA -->
       <div class="mt-10 text-center">
         <a
-          href="https://github.com/dnsly-dev/dnsly-app/releases"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 px-7 py-3.5 bg-blue-600 hover:bg-blue-500 text-white text-xs sm:text-sm font-extrabold rounded-xl shadow-md shadow-blue-500/25 transition-all hover:-translate-y-0.5"
+          href="#download"
+          class="inline-flex items-center gap-2 px-7 py-3.5 bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold rounded-xl shadow-md shadow-blue-500/25 transition-all hover:-translate-y-0.5"
         >
-          <span>Download Free DNSly APK</span>
+          <span>Download DNSly APK</span>
           <PhArrowRight :size="15" weight="bold" />
         </a>
       </div>

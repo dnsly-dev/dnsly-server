@@ -79,18 +79,34 @@
     @apply max-w-6xl mx-auto px-6;
   }
 
-  /* Typography Tokens */
-  .section-title {
-    @apply text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold text-slate-900 leading-[1.18] tracking-tight mb-4;
+  /* Typography Scale Tokens */
+  .heading-hero {
+    @apply text-3xl sm:text-5xl lg:text-[3.25rem] font-black tracking-tight leading-[1.12] text-white;
   }
 
-  .section-subtitle {
-    @apply text-base sm:text-lg text-slate-500 leading-relaxed font-normal;
+  .subheading-hero {
+    @apply text-base sm:text-lg text-blue-100/90 font-normal leading-relaxed;
+  }
+
+  .heading-section {
+    @apply text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight;
+  }
+
+  .subheading-section {
+    @apply text-sm sm:text-base text-slate-500 max-w-2xl mx-auto leading-relaxed font-normal;
+  }
+
+  .heading-card {
+    @apply text-base sm:text-lg font-bold text-slate-900 tracking-tight;
+  }
+
+  .text-body {
+    @apply text-xs sm:text-sm text-slate-500 leading-relaxed font-normal;
   }
 
   /* Section Label Pill */
   .section-label {
-    @apply inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-100/80 text-primary-700 text-xs font-bold uppercase tracking-[0.12em] mb-4 select-none;
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-bold uppercase tracking-wider mb-3 select-none;
   }
 
   /* Primary Brand Button */

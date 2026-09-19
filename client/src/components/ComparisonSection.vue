@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { PhShieldCheck, PhCheck, PhX, PhBrowser, PhCloud, PhShieldWarning, PhSparkle } from '@phosphor-icons/vue'
+import { PhShieldCheck, PhCheck, PhX, PhBrowser, PhCloud, PhShieldWarning } from '@phosphor-icons/vue'
 
 const features = [
   { name: 'Ad & Tracker Blocking', dnsly: true, extension: true, cloud: true, vpn: true },
@@ -12,7 +12,7 @@ const features = [
   { name: 'Parental Controls & SafeSearch', dnsly: true, extension: false, cloud: true, vpn: false },
   { name: 'Mobile Data Savings', dnsly: true, extension: false, cloud: true, vpn: false },
   { name: 'Custom Allowlist & Denylist', dnsly: true, extension: true, cloud: false, vpn: false },
-  { name: '100% Free & Open-Source (MIT)', dnsly: true, extension: false, cloud: false, vpn: false },
+  { name: 'Zero Subscriptions or Accounts', dnsly: true, extension: false, cloud: false, vpn: false },
 ]
 </script>
 
@@ -26,10 +26,10 @@ const features = [
           <span>Feature Comparison</span>
         </div>
         <h2 id="comparison-heading" class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">
-          Why Choose DNSly?
+          How DNSly Compares
         </h2>
         <p class="text-sm sm:text-base text-slate-500 max-w-2xl mx-auto leading-relaxed">
-          See how DNSly’s on-device zero-latency architecture compares against browser extensions, cloud resolvers, and battery-heavy VPN apps.
+          See how DNSly’s on-device architecture compares against browser extensions, cloud resolvers, and battery-heavy VPN apps.
         </p>
       </div>
 
@@ -45,10 +45,6 @@ const features = [
                 </th>
                 <!-- DNSly Highlighted Col -->
                 <th scope="col" class="py-4 px-4 text-center bg-blue-50/80 border-x border-blue-200/80 w-1/5">
-                  <div class="inline-flex items-center gap-1 bg-blue-600 text-white text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full mb-1">
-                    <PhSparkle :size="10" weight="fill" />
-                    <span>Best</span>
-                  </div>
                   <div class="font-extrabold text-blue-700 text-sm">DNSly</div>
                 </th>
                 <th scope="col" class="py-4 px-3 text-center w-1/5 text-slate-600 font-bold text-xs">

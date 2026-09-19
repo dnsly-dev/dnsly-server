@@ -64,11 +64,11 @@ import { PhRocketLaunch, PhCheck, PhLightning, PhTimer } from '@phosphor-icons/v
         <div class="lg:col-span-6 order-1 lg:order-2 text-left">
           <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-bold uppercase tracking-wider mb-3">
             <PhLightning :size="15" weight="fill" />
-            <span>High Performance</span>
+            <span>Performance</span>
           </div>
 
           <h2 id="speed-heading" class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">
-            Boost Your Browsing & App Speed
+            Faster Browsing with Less Data Usage
           </h2>
 
           <p class="text-sm sm:text-base text-slate-600 leading-relaxed mb-4 max-w-lg">
