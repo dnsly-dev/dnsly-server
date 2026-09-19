@@ -3,75 +3,67 @@ import { AppModule } from '../src/app.module';
 import { ExpressAdapter } from '@nestjs/platform-express';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { apiReference } from '@scalar/nestjs-api-reference';
+import { setupScalarDocs } from '../src/scalar.util';
 import express, { Request, Response } from 'express';
 import cookieParser from 'cookie-parser';
 
 const server = express();
-let isInitialized = false;
+let serverPromise: Promise<express.Express> | null = null;
 
-async function bootstrapServerless() {
-  if (!isInitialized) {
-    const parseCookie = typeof cookieParser === 'function' ? cookieParser : (cookieParser as any).default;
-    if (typeof parseCookie === 'function') {
-      server.use(parseCookie());
-    }
+async function bootstrapServerless(): Promise<express.Express> {
+  if (!serverPromise) {
+    serverPromise = (async () => {
+      const cookieMiddleware: any = (cookieParser as any)?.default || cookieParser;
+      if (typeof cookieMiddleware === 'function') {
+        server.use(cookieMiddleware());
+      }
 
-    const app = await NestFactory.create(AppModule, new ExpressAdapter(server));
+      const app = await NestFactory.create(AppModule, new ExpressAdapter(server));
 
-    app.useGlobalPipes(
-      new ValidationPipe({
-        whitelist: true,
-        transform: true,
-        forbidNonWhitelisted: true,
-      }),
-    );
+      app.useGlobalPipes(
+        new ValidationPipe({
+          whitelist: true,
+          transform: true,
+          forbidNonWhitelisted: true,
+        }),
+      );
 
-    app.enableCors({
-      origin: true,
-      credentials: true,
-    });
+      app.enableCors({
+        origin: true,
+        credentials: true,
+      });
 
-    // OpenAPI Specification for Scalar Reference
-    const swaggerConfig = new DocumentBuilder()
-      .setTitle('DNSly Backend API')
-      .setDescription('DNSly telemetry ingestion, remote configs, admin analytics & device management API')
-      .setVersion('1.0.0')
-      .addApiKey({ type: 'apiKey', name: 'x-api-key', in: 'header' }, 'x-api-key')
-      .addBearerAuth()
-      .build();
+      // OpenAPI Specification for Scalar Reference
+      const swaggerConfig = new DocumentBuilder()
+        .setTitle('DNSly Backend API')
+        .setDescription('DNSly telemetry ingestion, remote configs, admin analytics & device management API')
+        .setVersion('1.0.0')
+        .addApiKey({ type: 'apiKey', name: 'x-api-key', in: 'header' }, 'x-api-key')
+        .addBearerAuth()
+        .build();
 
-    const document = SwaggerModule.createDocument(app, swaggerConfig);
+      const document = SwaggerModule.createDocument(app, swaggerConfig);
 
-    server.use(
-      '/reference',
-      apiReference({
-        spec: {
-          content: document,
-        },
-        theme: 'purple',
-        darkMode: true,
-      }),
-    );
+      // Mount Scalar API Reference UI on serverless express app
+      setupScalarDocs(server, document);
 
-    server.use(
-      '/docs',
-      apiReference({
-        spec: {
-          content: document,
-        },
-        theme: 'purple',
-        darkMode: true,
-      }),
-    );
-
-    await app.init();
-    isInitialized = true;
+      await app.init();
+      return server;
+    })();
   }
-  return server;
+  return serverPromise;
 }
 
 export default async function handler(req: Request, res: Response) {
-  await bootstrapServerless();
-  server(req, res);
+  try {
+    const expressApp = await bootstrapServerless();
+    expressApp(req, res);
+  } catch (err: any) {
+    console.error('CRITICAL VERCEL BOOTSTRAP FAILURE:', err);
+    res.status(500).json({
+      statusCode: 500,
+      message: 'Serverless Function Invocation Failed',
+      error: err?.message || String(err),
+    });
+  }
 }

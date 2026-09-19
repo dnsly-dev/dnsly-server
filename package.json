@@ -6,6 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
+    "postinstall": "prisma generate",
     "build": "nest build",
     "vercel-build": "prisma generate && nest build",
     "format": "prettier --write \"src/**/*.ts\"",
@@ -27,7 +28,6 @@
     "@nestjs/swagger": "^11.0.0",
     "@nestjs/throttler": "^6.4.0",
     "@prisma/client": "^6.4.0",
-    "@scalar/nestjs-api-reference": "^1.2.19",
     "bcryptjs": "^3.0.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
