@@ -33,4 +33,15 @@ export class AnalyticsController {
       Number.isInteger(limitNum) && limitNum > 0 ? limitNum : 20,
     );
   }
+
+  @Get('heartbeats')
+  @ApiOperation({ summary: 'Get recent live telemetry heartbeats stream' })
+  @ApiQuery({ name: 'limit', required: false, type: Number, description: 'Number of heartbeats (default: 50, max: 200)', example: 50 })
+  @ApiResponse({ status: 200, description: 'List of recent heartbeats' })
+  async getHeartbeats(@Query('limit') limit?: string) {
+    const limitNum = limit ? parseInt(limit, 10) : 50;
+    return this.analyticsService.getRecentHeartbeats(
+      Number.isInteger(limitNum) && limitNum > 0 ? limitNum : 50,
+    );
+  }
 }

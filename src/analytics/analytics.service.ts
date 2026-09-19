@@ -121,4 +121,22 @@ export class AnalyticsService {
       };
     }
   }
+
+  async getRecentHeartbeats(limit: number = 50) {
+    const validLimit = Math.min(Math.max(limit, 1), 200);
+    return this.prisma.heartbeat.findMany({
+      take: validLimit,
+      orderBy: { timestamp: 'desc' },
+      include: {
+        device: {
+          select: {
+            deviceModel: true,
+            osVersion: true,
+            countryCode: true,
+            appVersion: true,
+          },
+        },
+      },
+    });
+  }
 }
