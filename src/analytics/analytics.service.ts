@@ -20,31 +20,30 @@ export class AnalyticsService {
       where: { lastSeenAt: { gte: sevenDaysAgo } },
     });
 
-    // 2. Query Aggregations (Last 24h & 7d)
-    const recentHeartbeats = await this.prisma.heartbeat.findMany({
-      where: { timestamp: { gte: sevenDaysAgo } },
-      select: {
-        totalQueries: true,
-        blockedQueries: true,
-        selectedProvider: true,
-        shieldEnabled: true,
-        timestamp: true,
+    // 2. Query Aggregations (Latest snapshot per device)
+    const devicesWithLatestHeartbeat = await this.prisma.device.findMany({
+      include: {
+        heartbeats: {
+          take: 1,
+          orderBy: { timestamp: 'desc' },
+        },
       },
     });
 
-    let totalQueries7d = 0;
-    let blockedQueries7d = 0;
-    let shieldEnabledCount = 0;
+    let totalQueries = 0;
+    let blockedQueries = 0;
     const providerCounts: Record<string, number> = {};
 
-    for (const hb of recentHeartbeats) {
-      totalQueries7d += hb.totalQueries;
-      blockedQueries7d += hb.blockedQueries;
-      if (hb.shieldEnabled) shieldEnabledCount++;
-      providerCounts[hb.selectedProvider] = (providerCounts[hb.selectedProvider] || 0) + 1;
+    for (const device of devicesWithLatestHeartbeat) {
+      const latestHb = device.heartbeats[0];
+      if (latestHb) {
+        totalQueries += latestHb.totalQueries;
+        blockedQueries += latestHb.blockedQueries;
+        providerCounts[latestHb.selectedProvider] = (providerCounts[latestHb.selectedProvider] || 0) + 1;
+      }
     }
 
-    const blockRate = totalQueries7d > 0 ? ((blockedQueries7d / totalQueries7d) * 100).toFixed(1) : '0.0';
+    const blockRate = totalQueries > 0 ? ((blockedQueries / totalQueries) * 100).toFixed(1) : '0.0';
 
     // 3. App Version Distribution
     const versionGrouping = await this.prisma.device.groupBy({
@@ -60,8 +59,8 @@ export class AnalyticsService {
         active7d: activeDevices7d,
       },
       queries: {
-        total7d: totalQueries7d,
-        blocked7d: blockedQueries7d,
+        total7d: totalQueries,
+        blocked7d: blockedQueries,
         blockRatePercent: parseFloat(blockRate),
       },
       providerDistribution: providerCounts,
