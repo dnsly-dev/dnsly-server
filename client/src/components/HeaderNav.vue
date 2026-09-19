@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
-import { PhShieldCheck, PhList, PhX, PhDownloadSimple } from '@phosphor-icons/vue'
+import { PhShieldCheck, PhList, PhX, PhDownloadSimple, PhUserGear } from '@phosphor-icons/vue'
 
 const isScrolled = ref(false)
 const isMobileOpen = ref(false)
@@ -23,87 +23,114 @@ const links = [
 
 <template>
   <header
-    class="fixed top-0 left-0 right-0 z-50 transition-colors duration-300"
+    class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
     :class="isScrolled
-      ? 'bg-primary-600/95 backdrop-blur-md shadow-card'
-      : 'bg-transparent'"
+      ? 'bg-blue-600/95 backdrop-blur-md shadow-md py-1'
+      : 'bg-transparent py-2'"
+    role="banner"
   >
-    <div class="section-container h-[var(--header-height)] flex items-center justify-between">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
       <!-- Logo -->
-      <a href="/" class="flex items-center gap-2.5 no-underline group select-none">
-        <div class="w-9 h-9 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center border border-white/25 group-hover:bg-white/30 transition-all shadow-sm">
-          <PhShieldCheck :size="20" class="text-white" weight="fill" />
+      <a
+        href="/"
+        class="flex items-center gap-2.5 no-underline group select-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white rounded-xl p-1"
+        aria-label="DNSly Home"
+      >
+        <div class="w-9 h-9 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center border border-white/30 group-hover:bg-white/30 transition-all shadow-xs text-white">
+          <PhShieldCheck :size="22" weight="fill" />
         </div>
-        <span class="text-xl font-extrabold tracking-tight text-white">
-          DNSly
+        <span class="text-xl font-black tracking-tight text-white">
+          DNS<span class="text-blue-200">ly</span>
         </span>
       </a>
 
       <!-- Desktop Nav -->
-      <nav class="hidden md:flex items-center gap-7">
-        <template v-for="link in links" :key="link.label">
-          <a
-            :href="link.href"
-            class="text-sm font-semibold tracking-wide text-white/85 hover:text-white transition-colors duration-150 inline-flex items-center gap-1 cursor-pointer"
-          >
-            {{ link.label }}
-          </a>
-        </template>
+      <nav class="hidden md:flex items-center gap-7" aria-label="Main Navigation">
+        <a
+          v-for="link in links"
+          :key="link.label"
+          :href="link.href"
+          class="text-sm font-semibold tracking-wide text-white/90 hover:text-white transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white rounded-lg px-2 py-1"
+        >
+          {{ link.label }}
+        </a>
       </nav>
 
-      <!-- Right CTA -->
-      <div class="flex items-center gap-3">
+      <!-- Right Action Items -->
+      <div class="flex items-center gap-2.5">
         <router-link
           to="/admin"
-          class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold text-white/90 hover:text-white bg-white/10 hover:bg-white/20 border border-white/20 transition-all duration-200"
+          class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold text-white/90 hover:text-white bg-white/10 hover:bg-white/20 border border-white/25 transition-all shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+          aria-label="Admin Management Console"
         >
-          <span>Admin Portal</span>
+          <PhUserGear :size="15" weight="bold" />
+          <span>Admin Console</span>
         </router-link>
 
         <a
           href="https://github.com/dnsly-dev/dnsly-app/releases"
           target="_blank"
           rel="noopener noreferrer"
-          class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold text-primary-700 bg-white hover:bg-slate-50 shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0"
+          class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-extrabold text-blue-700 bg-white hover:bg-slate-50 shadow-sm hover:shadow-md transition-all hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
         >
           <PhDownloadSimple :size="16" weight="bold" />
-          <span>Download</span>
+          <span>Download Free</span>
         </a>
 
-        <!-- Mobile Toggle -->
+        <!-- Mobile Toggle Button (Min 44x44px Touch Target) -->
         <button
-          class="md:hidden p-2 rounded-xl transition-colors text-white hover:bg-white/20 active:scale-95"
+          class="md:hidden min-w-[44px] min-h-[44px] p-2 rounded-xl transition-colors text-white hover:bg-white/20 active:scale-95 flex items-center justify-center cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
           @click="isMobileOpen = !isMobileOpen"
-          aria-label="Toggle navigation"
+          :aria-expanded="isMobileOpen"
+          aria-controls="mobile-navigation"
+          aria-label="Toggle navigation menu"
         >
-          <PhX v-if="isMobileOpen" :size="22" weight="bold" />
-          <PhList v-else :size="22" weight="bold" />
+          <PhX v-if="isMobileOpen" :size="24" weight="bold" />
+          <PhList v-else :size="24" weight="bold" />
         </button>
       </div>
     </div>
 
-    <!-- Mobile Drawer -->
+    <!-- Mobile Navigation Drawer -->
     <Transition name="slide">
-      <div v-if="isMobileOpen" class="md:hidden bg-white border-b border-slate-100 shadow-card">
-        <nav class="max-w-6xl mx-auto px-6 py-5 flex flex-col gap-1.5">
+      <div
+        v-if="isMobileOpen"
+        id="mobile-navigation"
+        class="md:hidden bg-white border-b border-slate-200 shadow-xl"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Mobile Menu"
+      >
+        <nav class="max-w-6xl mx-auto px-5 py-5 flex flex-col gap-1.5">
           <a
             v-for="link in links"
             :key="link.label"
             :href="link.href"
-            class="px-4 py-3 rounded-xl text-sm font-semibold text-slate-700 hover:bg-primary-50 hover:text-primary-600 transition-colors flex items-center justify-between cursor-pointer"
+            class="px-4 py-3 rounded-xl text-sm font-bold text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center justify-between"
             @click="isMobileOpen = false"
           >
             <span>{{ link.label }}</span>
           </a>
-          <div class="mt-3 pt-3 border-t border-slate-100">
+
+          <div class="pt-3 mt-2 border-t border-slate-100 flex flex-col gap-2.5">
+            <router-link
+              to="/admin"
+              class="w-full py-3 px-4 rounded-xl text-center text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 transition-colors flex items-center justify-center gap-2"
+              @click="isMobileOpen = false"
+            >
+              <PhUserGear :size="16" weight="bold" />
+              <span>Admin Management Console</span>
+            </router-link>
+
             <a
               href="https://github.com/dnsly-dev/dnsly-app/releases"
               target="_blank"
-              class="btn-primary w-full text-center"
+              rel="noopener noreferrer"
+              class="w-full py-3.5 px-4 rounded-xl text-center text-xs font-extrabold text-white bg-blue-600 hover:bg-blue-500 shadow-md shadow-blue-500/25 transition-all flex items-center justify-center gap-2"
               @click="isMobileOpen = false"
             >
               <PhDownloadSimple :size="16" weight="bold" />
-              Download APK
+              <span>Download Free Android APK</span>
             </a>
           </div>
         </nav>
