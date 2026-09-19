@@ -12,11 +12,13 @@ import { AppController } from './app.controller';
 import { join } from 'path';
 import * as fs from 'fs';
 
-// Resolve static path for compiled Vue frontend
+// Resolve static path for compiled Vue frontend (merged client/dist or standalone frontend/dist)
 const possibleDistPaths = [
+  join(process.cwd(), 'client/dist'),
+  join(__dirname, '../client/dist'),
+  join(__dirname, '../../client/dist'),
   join(process.cwd(), '../DNSly-frontend/dist'),
   join(__dirname, '../../DNSly-frontend/dist'),
-  join(__dirname, '../public'),
   join(process.cwd(), 'public'),
 ];
 
