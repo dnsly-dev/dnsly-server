@@ -1,5 +1,5 @@
 import { Controller, Get, Query, UseGuards } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiQuery } from '@nestjs/swagger';
 import { AnalyticsService } from './analytics.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
@@ -19,11 +19,18 @@ export class AnalyticsController {
 
   @Get('devices')
   @ApiOperation({ summary: 'Get paginated list of client devices' })
+  @ApiQuery({ name: 'page', required: false, type: Number, description: 'Page number (default: 1)', example: 1 })
+  @ApiQuery({ name: 'limit', required: false, type: Number, description: 'Items per page (default: 20, max: 100)', example: 20 })
   @ApiResponse({ status: 200, description: 'Paginated list of active and total devices' })
   async getDevices(
-    @Query('page') page: string = '1',
-    @Query('limit') limit: string = '20',
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
   ) {
-    return this.analyticsService.getDevicesList(parseInt(page, 10), parseInt(limit, 10));
+    const pageNum = page ? parseInt(page, 10) : 1;
+    const limitNum = limit ? parseInt(limit, 10) : 20;
+    return this.analyticsService.getDevicesList(
+      Number.isInteger(pageNum) && pageNum > 0 ? pageNum : 1,
+      Number.isInteger(limitNum) && limitNum > 0 ? limitNum : 20,
+    );
   }
 }

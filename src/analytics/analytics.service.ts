@@ -64,7 +64,7 @@ export class AnalyticsService {
         blockRatePercent: parseFloat(blockRate),
       },
       providerDistribution: providerCounts,
-      versionDistribution: versionGrouping.map((v) => ({
+      versionDistribution: (versionGrouping || []).map((v) => ({
         version: v.appVersion,
         count: v._count.id,
       })),
@@ -72,39 +72,53 @@ export class AnalyticsService {
     };
   }
 
-  async getDevicesList(page = 1, limit = 20) {
-    const skip = (page - 1) * limit;
-    const [total, devices] = await Promise.all([
-      this.prisma.device.count(),
-      this.prisma.device.findMany({
-        skip,
-        take: limit,
-        orderBy: { lastSeenAt: 'desc' },
-        include: {
-          heartbeats: {
-            take: 1,
-            orderBy: { timestamp: 'desc' },
-          },
-        },
-      }),
-    ]);
+  async getDevicesList(page: number = 1, limit: number = 20) {
+    const validPage = Number.isInteger(page) && page > 0 ? page : 1;
+    const validLimit = Number.isInteger(limit) && limit > 0 ? Math.min(limit, 100) : 20;
+    const skip = (validPage - 1) * validLimit;
 
-    return {
-      total,
-      page,
-      limit,
-      totalPages: Math.ceil(total / limit),
-      devices: devices.map((d) => ({
-        id: d.id,
-        appVersion: d.appVersion,
-        deviceModel: d.deviceModel || 'Unknown Device',
-        osVersion: d.osVersion || 'Android',
-        countryCode: d.countryCode || 'N/A',
-        firstSeenAt: d.firstSeenAt,
-        lastSeenAt: d.lastSeenAt,
-        isActive: d.isActive,
-        lastHeartbeat: d.heartbeats[0] || null,
-      })),
-    };
+    try {
+      const [total, devices] = await Promise.all([
+        this.prisma.device.count(),
+        this.prisma.device.findMany({
+          skip,
+          take: validLimit,
+          orderBy: { lastSeenAt: 'desc' },
+          include: {
+            heartbeats: {
+              take: 1,
+              orderBy: { timestamp: 'desc' },
+            },
+          },
+        }),
+      ]);
+
+      return {
+        total: total || 0,
+        page: validPage,
+        limit: validLimit,
+        totalPages: Math.ceil((total || 0) / validLimit),
+        devices: (devices || []).map((d) => ({
+          id: d.id,
+          appVersion: d.appVersion,
+          deviceModel: d.deviceModel || 'Unknown Device',
+          osVersion: d.osVersion || 'Android',
+          countryCode: d.countryCode || 'N/A',
+          firstSeenAt: d.firstSeenAt,
+          lastSeenAt: d.lastSeenAt,
+          isActive: d.isActive,
+          lastHeartbeat: d.heartbeats?.[0] || null,
+        })),
+      };
+    } catch (err: any) {
+      console.error('AnalyticsService.getDevicesList error:', err);
+      return {
+        total: 0,
+        page: validPage,
+        limit: validLimit,
+        totalPages: 0,
+        devices: [],
+      };
+    }
   }
 }
