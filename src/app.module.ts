@@ -35,7 +35,7 @@ for (const p of possibleDistPaths) {
     ConfigModule.forRoot({ isGlobal: true }),
     ServeStaticModule.forRoot({
       rootPath: resolvedStaticPath,
-      exclude: ['/api/(.*)', '/reference/(.*)', '/docs/(.*)', '/openapi.json'],
+      exclude: ['/api{/*path}', '/reference{/*path}', '/docs{/*path}', '/openapi.json'],
       serveStaticOptions: {
         index: 'index.html',
       },
