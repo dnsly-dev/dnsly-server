@@ -5,9 +5,9 @@ import { PhShieldCheck, PhGithubLogo, PhArrowSquareOut } from '@phosphor-icons/v
 <template>
   <footer class="w-full bg-white border-t border-slate-200/80 pt-12 pb-10" role="contentinfo">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 lg:gap-10 mb-10">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12 mb-10">
         <!-- Brand Column -->
-        <div class="sm:col-span-2 md:col-span-4 lg:col-span-2">
+        <div class="sm:col-span-2 md:col-span-2">
           <a href="/" class="inline-flex items-center gap-2.5 mb-3 no-underline select-none" aria-label="DNSly Home">
             <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center shadow-xs text-white">
               <PhShieldCheck :size="20" weight="fill" />
@@ -27,7 +27,7 @@ import { PhShieldCheck, PhGithubLogo, PhArrowSquareOut } from '@phosphor-icons/v
         </div>
 
         <!-- Product Links -->
-        <div class="sm:col-span-1 md:col-span-1 lg:col-span-1">
+        <div class="sm:col-span-1 md:col-span-1">
           <h3 class="text-[11px] font-extrabold uppercase tracking-wider text-slate-900 mb-3">Product</h3>
           <ul class="space-y-2 text-xs" role="list">
             <li><a href="#how-it-works" class="text-slate-500 hover:text-blue-600 transition-colors font-medium">How It Works</a></li>
@@ -38,48 +38,8 @@ import { PhShieldCheck, PhGithubLogo, PhArrowSquareOut } from '@phosphor-icons/v
           </ul>
         </div>
 
-        <!-- Open Source Links -->
-        <div class="sm:col-span-1 md:col-span-1 lg:col-span-1">
-          <h3 class="text-[11px] font-extrabold uppercase tracking-wider text-slate-900 mb-3">Repositories</h3>
-          <ul class="space-y-2 text-xs" role="list">
-            <li>
-              <a
-                href="https://github.com/dnsly-dev/dnsly-app"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-slate-500 hover:text-blue-600 transition-colors font-medium inline-flex items-center gap-1"
-              >
-                <span>Android App</span>
-                <PhArrowSquareOut :size="12" class="text-slate-400" />
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://github.com/dnsly-dev/dnsly-app/releases"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-slate-500 hover:text-blue-600 transition-colors font-medium inline-flex items-center gap-1"
-              >
-                <span>Download APK</span>
-                <PhArrowSquareOut :size="12" class="text-slate-400" />
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://github.com/dnsly-dev/dnsly-server"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-slate-500 hover:text-blue-600 transition-colors font-medium inline-flex items-center gap-1"
-              >
-                <span>Server (GitHub)</span>
-                <PhArrowSquareOut :size="12" class="text-slate-400" />
-              </a>
-            </li>
-          </ul>
-        </div>
-
         <!-- Management & API Links -->
-        <div class="sm:col-span-2 md:col-span-2 lg:col-span-1">
+        <div class="sm:col-span-1 md:col-span-1">
           <h3 class="text-[11px] font-extrabold uppercase tracking-wider text-slate-900 mb-3">Platform</h3>
           <ul class="space-y-2 text-xs" role="list">
             <li>
