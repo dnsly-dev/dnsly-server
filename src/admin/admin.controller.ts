@@ -393,7 +393,7 @@ function getDashboardHtml(isAuthenticated: boolean): string {
               <td>\${d.osVersion} \${d.countryCode !== 'N/A' ? '• ' + d.countryCode : ''}</td>
               <td>\${d.appVersion}</td>
               <td>\${d.lastHeartbeat ? d.lastHeartbeat.selectedProvider : 'N/A'}</td>
-              <td><span class="badge \${d.lastHeartbeat && d.lastHeartbeat.shieldEnabled ? 'badge-active' : 'badge-inactive'}">\${d.lastHeartbeat && d.lastHeartbeat.shieldEnabled ? 'Enabled' : 'Disabled'}</span></td>
+              <td><span class="badge \${d.lastHeartbeat && d.lastHeartbeat.shieldEnabled ? 'badge-active' : 'badge-inactive'}">\${d.lastHeartbeat && d.lastHeartbeat.shieldEnabled ? 'Active' : 'Inactive'}</span></td>
               <td>\${new Date(d.lastSeenAt).toLocaleString()}</td>
             </tr>
           \`).join('');
