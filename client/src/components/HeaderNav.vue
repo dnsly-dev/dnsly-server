@@ -6,12 +6,21 @@ const isScrolled = ref(false)
 const isMobileOpen = ref(false)
 
 const handleScroll = () => {
-  isScrolled.value = window.scrollY > 15
+  if (typeof window !== 'undefined') {
+    const scrollPos = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0
+    isScrolled.value = scrollPos > 10
+  }
 }
 
-onMounted(() => window.addEventListener('scroll', handleScroll))
+onMounted(() => {
+  handleScroll()
+  window.addEventListener('scroll', handleScroll, { passive: true })
+})
+
 onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll)
+  if (typeof window !== 'undefined') {
+    window.removeEventListener('scroll', handleScroll)
+  }
   document.body.style.overflow = ''
 })
 
@@ -32,10 +41,8 @@ const links = [
 
 <template>
   <header
-    class="fixed top-0 left-0 right-0 z-40 transition-all duration-300"
-    :class="isScrolled
-      ? 'bg-blue-600/95 backdrop-blur-md shadow-md py-1'
-      : 'bg-transparent py-2'"
+    class="fixed top-0 left-0 right-0 z-40 bg-blue-600/95 backdrop-blur-md border-b border-blue-500/40 transition-all duration-300"
+    :class="isScrolled ? 'shadow-lg shadow-blue-900/20 py-1' : 'shadow-sm py-2'"
     role="banner"
   >
     <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
