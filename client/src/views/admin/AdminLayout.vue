@@ -23,7 +23,7 @@ const { user, logout } = useAuth()
 const route = useRoute()
 
 const isMobileMenuOpen = ref(false)
-const apiUrl = ref(localStorage.getItem('dnsly_api_base_url') || 'https://api.dnsly.shovon.bd')
+const apiUrl = ref(localStorage.getItem('dnsly_api_base_url') || 'https://dnsly.shovon.bd')
 
 const navItems = [
   { name: 'Dashboard', path: '/admin/overview', icon: PhChartPieSlice, color: 'text-blue-500', badge: null },

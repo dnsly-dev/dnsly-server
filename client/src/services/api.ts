@@ -7,7 +7,7 @@ const getStoredApiUrl = () => {
   if (typeof window !== 'undefined' && window.location.port !== '5173') {
     return '' // Same-origin relative path for NestJS unified hosting
   }
-  return 'https://api.dnsly.shovon.bd'
+  return 'https://dnsly.shovon.bd'
 }
 
 export const apiClient = axios.create({

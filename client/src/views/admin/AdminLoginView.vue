@@ -8,7 +8,7 @@ const { login, isLoading, error } = useAuth()
 const email = ref('admin@dnsly.app')
 const password = ref('Admin@DNSly2026')
 const showApiConfig = ref(false)
-const customApiUrl = ref(localStorage.getItem('dnsly_api_base_url') || 'https://api.dnsly.shovon.bd')
+const customApiUrl = ref(localStorage.getItem('dnsly_api_base_url') || 'https://dnsly.shovon.bd')
 
 const handleSubmit = async () => {
   if (showApiConfig.value) {
@@ -106,12 +106,12 @@ const quickSetUrl = (url: string) => {
                 v-model="customApiUrl"
                 type="text"
                 class="w-full px-3 py-1.5 text-xs font-mono bg-white border border-slate-200 rounded-lg text-blue-700 focus:outline-none focus:border-blue-500"
-                placeholder="https://api.dnsly.shovon.bd"
+                placeholder="https://dnsly.shovon.bd"
               />
               <div class="flex gap-2">
                 <button
                   type="button"
-                  @click="quickSetUrl('https://api.dnsly.shovon.bd')"
+                  @click="quickSetUrl('https://dnsly.shovon.bd')"
                   class="text-[10px] font-bold px-2 py-1 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded transition-colors cursor-pointer"
                 >
                   Cloud API (shovon.bd)

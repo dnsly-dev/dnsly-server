@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
-import { PhShieldCheck, PhList, PhX, PhDownloadSimple, PhUserGear } from '@phosphor-icons/vue'
+import { PhShieldCheck, PhList, PhX, PhDownloadSimple } from '@phosphor-icons/vue'
 
 const isScrolled = ref(false)
 const isMobileOpen = ref(false)
@@ -58,15 +58,6 @@ const links = [
 
       <!-- Right Action Items -->
       <div class="flex items-center gap-2.5">
-        <router-link
-          to="/admin"
-          class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold text-white/90 hover:text-white bg-white/10 hover:bg-white/20 border border-white/25 transition-all shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-          aria-label="Admin Management Console"
-        >
-          <PhUserGear :size="15" weight="bold" />
-          <span>Admin Console</span>
-        </router-link>
-
         <a
           href="#download"
           class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold text-blue-700 bg-white hover:bg-slate-50 shadow-sm hover:shadow-md transition-all hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
@@ -111,15 +102,6 @@ const links = [
           </a>
 
           <div class="pt-3 mt-2 border-t border-slate-100 flex flex-col gap-2.5">
-            <router-link
-              to="/admin"
-              class="w-full py-3 px-4 rounded-xl text-center text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 transition-colors flex items-center justify-center gap-2"
-              @click="isMobileOpen = false"
-            >
-              <PhUserGear :size="16" weight="bold" />
-              <span>Admin Console</span>
-            </router-link>
-
             <a
               href="#download"
               class="w-full py-3.5 px-4 rounded-xl text-center text-xs font-bold text-white bg-blue-600 hover:bg-blue-500 shadow-md shadow-blue-500/25 transition-all flex items-center justify-center gap-2"
