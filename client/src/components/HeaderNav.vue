@@ -100,15 +100,21 @@ const links = [
       <div
         v-if="isMobileOpen"
         id="mobile-fullscreen-navigation"
-        class="fixed inset-0 z-50 bg-slate-950/98 backdrop-blur-2xl flex flex-col justify-between p-6 sm:p-8 md:hidden"
+        class="fixed inset-0 z-50 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 backdrop-blur-3xl flex flex-col justify-between p-6 sm:p-8 md:hidden"
         role="dialog"
         aria-modal="true"
         aria-label="Mobile Navigation"
       >
+        <!-- Background Ambient Glow -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+          <div class="absolute -top-20 -left-20 w-80 h-80 rounded-full bg-blue-600/20 blur-3xl"></div>
+          <div class="absolute -bottom-20 -right-20 w-80 h-80 rounded-full bg-indigo-500/15 blur-3xl"></div>
+        </div>
+
         <!-- Top Bar with Brand & Close Button -->
-        <div class="flex items-center justify-between pb-6 border-b border-white/10">
+        <div class="relative z-10 flex items-center justify-between pb-5 border-b border-white/10">
           <div class="flex items-center gap-2.5 select-none">
-            <div class="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white shadow-lg shadow-blue-500/30 border border-white/20">
               <PhShieldCheck :size="24" weight="fill" />
             </div>
             <span class="text-2xl font-black text-white tracking-tight">
@@ -118,43 +124,49 @@ const links = [
 
           <button
             @click="isMobileOpen = false"
-            class="min-w-[44px] min-h-[44px] p-2.5 rounded-xl bg-white/10 hover:bg-white/20 active:scale-95 text-white flex items-center justify-center transition-all cursor-pointer focus-visible:outline-2 focus-visible:outline-white"
+            class="min-w-[44px] min-h-[44px] p-2.5 rounded-xl bg-white/10 hover:bg-white/20 active:scale-95 text-white border border-white/10 flex items-center justify-center transition-all cursor-pointer focus-visible:outline-2 focus-visible:outline-white"
             aria-label="Close navigation menu"
           >
-            <PhX :size="24" weight="bold" />
+            <PhX :size="22" weight="bold" />
           </button>
         </div>
 
-        <!-- Middle: Nav Links (Large & Touchable) -->
-        <nav class="flex flex-col my-auto py-6 space-y-1">
+        <!-- Middle: Nav Links (Clean Card Style with High Contrast) -->
+        <nav class="relative z-10 flex flex-col my-auto py-5 space-y-2.5">
           <a
             v-for="(link, idx) in links"
             :key="link.label"
             :href="link.href"
-            class="py-3.5 px-3 rounded-2xl text-2xl sm:text-3xl font-black text-white hover:text-blue-400 hover:bg-white/5 active:scale-[0.98] transition-all flex items-center justify-between group border-b border-white/5 last:border-0"
+            class="group py-3.5 px-4 rounded-2xl bg-white/[0.04] hover:bg-white/[0.08] active:bg-white/[0.12] border border-white/[0.08] active:scale-[0.99] transition-all flex items-center justify-between text-decoration-none"
             @click="isMobileOpen = false"
           >
-            <div class="flex items-center gap-3">
-              <span class="text-xs font-mono text-slate-500 font-bold group-hover:text-blue-400 transition-colors">0{{ idx + 1 }}</span>
-              <span>{{ link.label }}</span>
+            <div class="flex items-center gap-3.5">
+              <span class="px-2.5 py-1 rounded-lg bg-blue-500/20 text-blue-300 font-mono text-xs font-black border border-blue-400/30 group-hover:bg-blue-500 group-hover:text-white transition-all">
+                0{{ idx + 1 }}
+              </span>
+              <span class="text-lg sm:text-xl font-extrabold text-white group-hover:text-blue-300 transition-colors tracking-tight">
+                {{ link.label }}
+              </span>
             </div>
-            <PhArrowRight :size="20" weight="bold" class="text-slate-500 group-hover:text-blue-400 group-hover:translate-x-1 transition-all" />
+            <div class="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-blue-300 group-hover:bg-blue-500 group-hover:text-white group-hover:border-blue-400 transition-all">
+              <PhArrowRight :size="16" weight="bold" class="group-hover:translate-x-0.5 transition-transform" />
+            </div>
           </a>
         </nav>
 
-        <!-- Bottom: Primary Action Button & Info -->
-        <div class="pt-6 border-t border-white/10 space-y-4">
+        <!-- Bottom: High-Contrast Crisp CTA Button & Tagline -->
+        <div class="relative z-10 pt-5 border-t border-white/10 space-y-3.5">
           <a
             href="#download"
-            class="w-full py-4 px-6 rounded-2xl text-center text-sm font-bold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-xl shadow-blue-600/30 active:scale-[0.99] transition-all flex items-center justify-center gap-2.5"
+            class="w-full py-4 px-6 rounded-2xl text-center text-sm font-extrabold bg-white hover:bg-slate-100 text-blue-700 shadow-xl shadow-blue-500/20 active:scale-[0.99] transition-all flex items-center justify-center gap-2.5 cursor-pointer select-none"
             @click="isMobileOpen = false"
           >
-            <PhDownloadSimple :size="20" weight="bold" />
+            <PhDownloadSimple :size="18" weight="bold" class="text-blue-700" />
             <span>Download Android APK</span>
           </a>
 
-          <div class="text-center text-xs text-slate-500 font-medium">
-            On-Device DNS Privacy & Threat Firewall
+          <div class="text-center text-xs font-semibold text-blue-200/80">
+            🛡️ Local On-Device DNS Privacy & Ad Blocker
           </div>
         </div>
       </div>
@@ -165,11 +177,11 @@ const links = [
 <style scoped>
 .fullscreen-menu-enter-active,
 .fullscreen-menu-leave-active {
-  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1), transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .fullscreen-menu-enter-from,
 .fullscreen-menu-leave-to {
   opacity: 0;
-  transform: scale(0.98);
+  transform: scale(0.97);
 }
 </style>
