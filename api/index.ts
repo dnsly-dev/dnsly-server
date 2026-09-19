@@ -3,6 +3,7 @@ import { AppModule } from '../src/app.module';
 import { ExpressAdapter } from '@nestjs/platform-express';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { apiReference } from '@scalar/nestjs-api-reference';
 import express, { Request, Response } from 'express';
 import cookieParser from 'cookie-parser';
 
@@ -31,7 +32,7 @@ async function bootstrapServerless() {
       credentials: true,
     });
 
-    // Swagger OpenAPI setup for Serverless
+    // OpenAPI Specification for Scalar Reference
     const swaggerConfig = new DocumentBuilder()
       .setTitle('DNSly Backend API')
       .setDescription('DNSly telemetry ingestion, remote configs, admin analytics & device management API')
@@ -41,7 +42,28 @@ async function bootstrapServerless() {
       .build();
 
     const document = SwaggerModule.createDocument(app, swaggerConfig);
-    SwaggerModule.setup('api/docs', app, document);
+
+    server.use(
+      '/reference',
+      apiReference({
+        spec: {
+          content: document,
+        },
+        theme: 'purple',
+        darkMode: true,
+      }),
+    );
+
+    server.use(
+      '/docs',
+      apiReference({
+        spec: {
+          content: document,
+        },
+        theme: 'purple',
+        darkMode: true,
+      }),
+    );
 
     await app.init();
     isInitialized = true;

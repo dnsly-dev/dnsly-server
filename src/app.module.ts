@@ -7,7 +7,6 @@ import { AuthModule } from './auth/auth.module';
 import { TelemetryModule } from './telemetry/telemetry.module';
 import { RemoteConfigModule } from './config/remote-config.module';
 import { AnalyticsModule } from './analytics/analytics.module';
-import { AdminModule } from './admin/admin.module';
 
 import { AppController } from './app.controller';
 
@@ -29,7 +28,6 @@ import { AppController } from './app.controller';
     TelemetryModule,
     RemoteConfigModule,
     AnalyticsModule,
-    AdminModule,
   ],
   controllers: [AppController],
   providers: [

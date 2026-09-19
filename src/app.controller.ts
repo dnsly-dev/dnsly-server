@@ -11,8 +11,7 @@ export class AppController {
       name: 'DNSly Backend API',
       status: 'healthy',
       version: '1.0.0',
-      dashboard: '/admin',
-      documentation: '/api/docs',
+      documentation: '/reference',
       timestamp: new Date().toISOString(),
     });
   }

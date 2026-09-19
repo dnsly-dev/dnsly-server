@@ -8,10 +8,9 @@ The official backend for the DNSly Android app. Handles anonymous telemetry inge
 - **Telemetry Ingestion**: Ingests anonymous client heartbeats (`totalQueries`, `blockedQueries`, `selectedProvider`, `shieldEnabled`, `appVersion`).
 - **Remote Configuration**: Endpoints delivering curated DNS servers and blocklist feeds to the Android client.
 - **Admin Analytics API**: Overview metrics, active devices (DAU/WAU), threat block rate, provider distribution, and version breakdown.
-- **Built-in Admin Dashboard**: Web UI at `/admin` with real-time KPI cards and Chart.js visualizations.
 - **Client Security & Rate Limiting**: `x-api-key` header verification and NestJS Throttler rate limiting (120 req/min).
 - **Prisma & PostgreSQL**: Robust schema with auto-migrations and seeds.
-- **Swagger Documentation**: Interactive OpenAPI documentation at `/api/docs`.
+- **Scalar API Reference**: Modern interactive API documentation at `/reference` (or `/docs`).
 
 ---
 
@@ -53,11 +52,11 @@ npm run start:prod
 
 ## Default Credentials & Endpoints
 
-- **Admin Dashboard**: `http://localhost:3000/admin`
+- **Scalar API Reference**: `http://localhost:3000/reference`
+- **Admin Login Endpoint**: `POST /api/v1/admin/auth/login`
   - **Email**: `admin@dnsly.app`
   - **Password**: `Admin@DNSly2026`
-- **Swagger Documentation**: `http://localhost:3000/api/docs`
-- **Client API Key Header**: `x-api-key: dnsly-client-sec-2026`
+- **Client API Key Header**: `x-api-key: cf1a5804f6a44c45da05b04dda52f8bc75242cdf0c827db5fa2aa94dd8bce8a7`
 
 ---
 

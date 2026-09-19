@@ -2,12 +2,12 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { apiReference } from '@scalar/nestjs-api-reference';
 import cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // Enable cookie parser for admin dashboard authentication
   const parseCookie = typeof cookieParser === 'function' ? cookieParser : (cookieParser as any).default;
   if (typeof parseCookie === 'function') {
     app.use(parseCookie());
@@ -28,7 +28,7 @@ async function bootstrap() {
     credentials: true,
   });
 
-  // Swagger OpenAPI Documentation Configuration
+  // OpenAPI Specification for Scalar Reference
   const swaggerConfig = new DocumentBuilder()
     .setTitle('DNSly Backend API')
     .setDescription('DNSly telemetry ingestion, remote configs, admin analytics & device management API')
@@ -38,14 +38,35 @@ async function bootstrap() {
     .build();
 
   const document = SwaggerModule.createDocument(app, swaggerConfig);
-  SwaggerModule.setup('api/docs', app, document);
+
+  // Mount Scalar API Reference UI
+  app.use(
+    '/reference',
+    apiReference({
+      spec: {
+        content: document,
+      },
+      theme: 'purple',
+      darkMode: true,
+    }),
+  );
+
+  app.use(
+    '/docs',
+    apiReference({
+      spec: {
+        content: document,
+      },
+      theme: 'purple',
+      darkMode: true,
+    }),
+  );
 
   const port = process.env.PORT || 3000;
   await app.listen(port);
   console.log(`=========================================`);
   console.log(`🛡️ DNSly Server running on port ${port}`);
-  console.log(`📄 Swagger Docs: http://localhost:${port}/api/docs`);
-  console.log(`📊 Admin Dashboard: http://localhost:${port}/admin`);
+  console.log(`📄 Scalar API Docs: http://localhost:${port}/reference`);
   console.log(`=========================================`);
 }
 bootstrap();
