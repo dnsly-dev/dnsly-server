@@ -241,19 +241,14 @@ const exportJSON = () => {
             >
               <!-- Status Pills -->
               <td class="py-3 px-4">
-                <div class="flex items-center gap-1">
-                  <span class="px-2 py-0.5 rounded text-[10px] font-extrabold uppercase bg-blue-500 text-white shadow-2xs">
-                    DoH
-                  </span>
-                  <span
-                    class="px-2 py-0.5 rounded text-[10px] font-extrabold uppercase"
-                    :class="device.lastHeartbeat?.shieldEnabled
-                      ? 'bg-emerald-500 text-white shadow-2xs'
-                      : 'bg-slate-200 text-slate-700'"
-                  >
-                    {{ device.lastHeartbeat?.shieldEnabled ? 'Active' : 'Disabled' }}
-                  </span>
-                </div>
+                <span
+                  class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-extrabold uppercase whitespace-nowrap"
+                  :class="device.lastHeartbeat?.shieldEnabled
+                    ? 'bg-emerald-500 text-white shadow-2xs'
+                    : 'bg-slate-100 text-slate-600 border border-slate-200'"
+                >
+                  {{ device.lastHeartbeat?.shieldEnabled ? 'Shield Active' : 'Shield Off' }}
+                </span>
               </td>
 
               <!-- UUID -->

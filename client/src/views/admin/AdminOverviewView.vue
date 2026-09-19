@@ -294,7 +294,7 @@ const svgAreaPath = computed(() => {
           <table class="w-full text-left text-xs border-collapse">
             <thead>
               <tr class="bg-slate-50 text-slate-500 font-extrabold uppercase tracking-wider text-[10px] border-b border-slate-100">
-                <th class="py-2.5 px-4">Status</th>
+                <th class="py-2.5 px-4">DNS & Shield</th>
                 <th class="py-2.5 px-4">Device Model</th>
                 <th class="py-2.5 px-4">Device UUID</th>
                 <th class="py-2.5 px-4">Last Seen</th>
@@ -317,17 +317,17 @@ const svgAreaPath = computed(() => {
                 :key="device.id"
                 class="hover:bg-slate-50/80 transition-colors"
               >
-                <!-- Status -->
+                <!-- DNS & Shield Status -->
                 <td class="py-2.5 px-4">
-                  <div class="flex items-center gap-1">
-                    <span class="px-2 py-0.5 rounded text-[10px] font-extrabold uppercase bg-blue-500 text-white shadow-2xs">
-                      DoH
+                  <div class="flex items-center gap-1.5 flex-wrap">
+                    <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-blue-50 text-blue-700 border border-blue-200/80 whitespace-nowrap">
+                      {{ device.lastHeartbeat?.selectedProvider || 'Default DNS' }}
                     </span>
                     <span
-                      class="px-2 py-0.5 rounded text-[10px] font-extrabold uppercase"
+                      class="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-extrabold uppercase tracking-wide whitespace-nowrap"
                       :class="device.lastHeartbeat?.shieldEnabled
                         ? 'bg-emerald-500 text-white shadow-2xs'
-                        : 'bg-slate-200 text-slate-700'"
+                        : 'bg-slate-100 text-slate-600 border border-slate-200'"
                     >
                       {{ device.lastHeartbeat?.shieldEnabled ? 'Shield Active' : 'Shield Off' }}
                     </span>
