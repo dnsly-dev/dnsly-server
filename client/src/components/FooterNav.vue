@@ -1,111 +1,95 @@
 <script setup lang="ts">
-import { PhShieldCheck, PhGithubLogo, PhEnvelope, PhArrowSquareOut } from '@phosphor-icons/vue'
-
-interface FooterLink {
-  label: string
-  href: string
-  external?: boolean
-}
-
-const productLinks: FooterLink[] = [
-  { label: 'How It Works', href: '#how-it-works' },
-  { label: 'Features', href: '#features' },
-  { label: 'Performance', href: '#speed' },
-  { label: 'Comparison', href: '#comparison' },
-  { label: 'Download APK', href: '#download' },
-]
-
-const openSourceLinks: FooterLink[] = [
-  { label: 'GitHub Repository', href: 'https://github.com/dnsly-dev/dnsly-app', external: true },
-  { label: 'Releases & Changelog', href: 'https://github.com/dnsly-dev/dnsly-app/releases', external: true },
-  { label: 'Issue Tracker', href: 'https://github.com/dnsly-dev/dnsly-app/issues', external: true },
-  { label: 'Security Advisories', href: 'https://github.com/dnsly-dev/dnsly-app/security', external: true },
-]
-
-const legalLinks: FooterLink[] = [
-  { label: 'Admin Management Portal', href: '/admin' },
-  { label: 'MIT Open-Source License', href: 'https://github.com/dnsly-dev/dnsly-app/blob/main/LICENSE', external: true },
-  { label: 'Privacy Policy', href: '#about' },
-  { label: 'Zero-Telemetry Promise', href: '#how-it-works' },
-  { label: 'Responsible Disclosure', href: 'mailto:security@dnsly.app' },
-]
+import { PhShieldCheck, PhGithubLogo, PhArrowSquareOut } from '@phosphor-icons/vue'
 </script>
 
 <template>
-  <footer class="w-full bg-white border-t border-slate-200/80 pt-16 pb-12" role="contentinfo">
+  <footer class="w-full bg-white border-t border-slate-200/80 pt-12 pb-10" role="contentinfo">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <!-- Footer Grid -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-12 mb-14">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10 mb-10">
         <!-- Brand Column -->
-        <div class="sm:col-span-2 lg:col-span-4">
-          <a href="/" class="inline-flex items-center gap-2.5 mb-4 no-underline select-none" aria-label="DNSly Home">
-            <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center shadow-xs text-white">
-              <PhShieldCheck :size="22" weight="fill" />
+        <div class="sm:col-span-2 lg:col-span-5">
+          <a href="/" class="inline-flex items-center gap-2.5 mb-3 no-underline select-none" aria-label="DNSly Home">
+            <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center shadow-xs text-white">
+              <PhShieldCheck :size="20" weight="fill" />
             </div>
-            <span class="text-xl font-black text-slate-900 tracking-tight">
+            <span class="text-lg font-black text-slate-900 tracking-tight">
               DNS<span class="text-blue-600">ly</span>
             </span>
           </a>
-          <p class="text-xs sm:text-sm text-slate-500 leading-relaxed max-w-sm mb-5">
-            The next-generation on-device DNS firewall and adblock engine for Android. Sinkholes threats, malware, and surveillance trackers with zero latency overhead.
+          <p class="text-xs text-slate-500 leading-relaxed max-w-sm mb-4">
+            On-device DNS firewall and ad-blocking engine for Android. Zero latency, 0 cloud logging.
           </p>
 
-          <!-- System Status Badge -->
-          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-xs font-bold text-emerald-700">
-            <span class="relative flex h-2 w-2">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-            </span>
-            <span>Threat Intelligence Feeds Active</span>
+          <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-[11px] font-bold text-emerald-700">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+            <span>Gateway Online</span>
           </div>
         </div>
 
         <!-- Product Links -->
-        <div class="lg:col-span-2 lg:col-start-6">
-          <h3 class="text-xs font-black uppercase tracking-wider text-slate-900 mb-4">Product</h3>
-          <ul class="space-y-2.5" role="list">
-            <li v-for="link in productLinks" :key="link.label">
-              <a
-                :href="link.href"
-                class="text-xs sm:text-sm text-slate-500 hover:text-blue-600 transition-colors font-medium"
-              >
-                {{ link.label }}
-              </a>
-            </li>
+        <div class="lg:col-span-2 lg:col-start-7">
+          <h3 class="text-[11px] font-extrabold uppercase tracking-wider text-slate-900 mb-3">Product</h3>
+          <ul class="space-y-2 text-xs" role="list">
+            <li><a href="#how-it-works" class="text-slate-500 hover:text-blue-600 transition-colors font-medium">How It Works</a></li>
+            <li><a href="#features" class="text-slate-500 hover:text-blue-600 transition-colors font-medium">Features</a></li>
+            <li><a href="#speed" class="text-slate-500 hover:text-blue-600 transition-colors font-medium">Performance</a></li>
+            <li><a href="#comparison" class="text-slate-500 hover:text-blue-600 transition-colors font-medium">Comparison</a></li>
           </ul>
         </div>
 
         <!-- Open Source Links -->
         <div class="lg:col-span-3">
-          <h3 class="text-xs font-black uppercase tracking-wider text-slate-900 mb-4">Open Source</h3>
-          <ul class="space-y-2.5" role="list">
-            <li v-for="link in openSourceLinks" :key="link.label">
+          <h3 class="text-[11px] font-extrabold uppercase tracking-wider text-slate-900 mb-3">Repositories</h3>
+          <ul class="space-y-2 text-xs" role="list">
+            <li>
               <a
-                :href="link.href"
-                :target="link.external ? '_blank' : undefined"
-                :rel="link.external ? 'noopener noreferrer' : undefined"
-                class="text-xs sm:text-sm text-slate-500 hover:text-blue-600 transition-colors font-medium inline-flex items-center gap-1"
+                href="https://github.com/dnsly-dev/dnsly-app"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-slate-500 hover:text-blue-600 transition-colors font-medium inline-flex items-center gap-1"
               >
-                <span>{{ link.label }}</span>
-                <PhArrowSquareOut v-if="link.external" :size="12" class="text-slate-400" />
+                <span>Android App (GitHub)</span>
+                <PhArrowSquareOut :size="12" class="text-slate-400" />
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://github.com/dnsly-dev/dnsly-app/releases"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-slate-500 hover:text-blue-600 transition-colors font-medium inline-flex items-center gap-1"
+              >
+                <span>Download Releases (APK)</span>
+                <PhArrowSquareOut :size="12" class="text-slate-400" />
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://github.com/dnsly-dev/dnsly-server"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-slate-500 hover:text-blue-600 transition-colors font-medium inline-flex items-center gap-1"
+              >
+                <span>Full-Stack Server (GitHub)</span>
+                <PhArrowSquareOut :size="12" class="text-slate-400" />
               </a>
             </li>
           </ul>
         </div>
 
-        <!-- Trust & Legal Links -->
-        <div class="lg:col-span-3">
-          <h3 class="text-xs font-black uppercase tracking-wider text-slate-900 mb-4">Trust & Admin</h3>
-          <ul class="space-y-2.5" role="list">
-            <li v-for="link in legalLinks" :key="link.label">
-              <a
-                :href="link.href"
-                :target="link.external ? '_blank' : undefined"
-                :rel="link.external ? 'noopener noreferrer' : undefined"
-                class="text-xs sm:text-sm text-slate-500 hover:text-blue-600 transition-colors font-medium inline-flex items-center gap-1"
-              >
-                <span>{{ link.label }}</span>
-                <PhArrowSquareOut v-if="link.external" :size="12" class="text-slate-400" />
+        <!-- Management & API Links -->
+        <div class="lg:col-span-2">
+          <h3 class="text-[11px] font-extrabold uppercase tracking-wider text-slate-900 mb-3">Platform</h3>
+          <ul class="space-y-2 text-xs" role="list">
+            <li>
+              <router-link to="/admin" class="text-slate-500 hover:text-blue-600 transition-colors font-semibold">
+                Admin Console
+              </router-link>
+            </li>
+            <li>
+              <a href="/reference" target="_blank" class="text-slate-500 hover:text-blue-600 transition-colors font-semibold inline-flex items-center gap-1">
+                <span>Scalar API Docs</span>
+                <PhArrowSquareOut :size="12" class="text-slate-400" />
               </a>
             </li>
           </ul>
@@ -113,26 +97,19 @@ const legalLinks: FooterLink[] = [
       </div>
 
       <!-- Bottom Bar -->
-      <div class="pt-8 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
-        <div class="text-xs text-slate-400 font-medium">
-          © {{ new Date().getFullYear() }} DNSly Project. Free & Open-Source under the MIT License.
+      <div class="pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left text-xs text-slate-400 font-medium">
+        <div>
+          © {{ new Date().getFullYear() }} DNSly. Open-source under MIT License.
         </div>
-        <div class="flex items-center gap-3">
+        <div>
           <a
-            href="https://github.com/dnsly-dev/dnsly-app"
+            href="https://github.com/dnsly-dev"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="DNSly GitHub Project"
-            class="w-9 h-9 rounded-xl bg-slate-50 hover:bg-blue-50 text-slate-400 hover:text-blue-600 flex items-center justify-center transition-all border border-slate-200"
+            aria-label="DNSly GitHub Organization"
+            class="w-8 h-8 rounded-lg bg-slate-50 hover:bg-blue-50 text-slate-500 hover:text-blue-600 inline-flex items-center justify-center transition-colors border border-slate-200"
           >
-            <PhGithubLogo :size="18" weight="bold" />
-          </a>
-          <a
-            href="mailto:hello@dnsly.app"
-            aria-label="Contact DNSly Project Team"
-            class="w-9 h-9 rounded-xl bg-slate-50 hover:bg-blue-50 text-slate-400 hover:text-blue-600 flex items-center justify-center transition-all border border-slate-200"
-          >
-            <PhEnvelope :size="18" weight="bold" />
+            <PhGithubLogo :size="16" weight="bold" />
           </a>
         </div>
       </div>
