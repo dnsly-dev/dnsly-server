@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
-import { PhShieldCheck, PhList, PhX, PhDownloadSimple } from '@phosphor-icons/vue'
+import { ref, onMounted, onUnmounted, watch } from 'vue'
+import { PhShieldCheck, PhList, PhX, PhDownloadSimple, PhArrowRight } from '@phosphor-icons/vue'
 
 const isScrolled = ref(false)
 const isMobileOpen = ref(false)
@@ -10,7 +10,16 @@ const handleScroll = () => {
 }
 
 onMounted(() => window.addEventListener('scroll', handleScroll))
-onUnmounted(() => window.removeEventListener('scroll', handleScroll))
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
+  document.body.style.overflow = ''
+})
+
+watch(isMobileOpen, (open) => {
+  if (typeof document !== 'undefined') {
+    document.body.style.overflow = open ? 'hidden' : ''
+  }
+})
 
 const links = [
   { label: 'About', href: '#about' },
@@ -23,7 +32,7 @@ const links = [
 
 <template>
   <header
-    class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+    class="fixed top-0 left-0 right-0 z-40 transition-all duration-300"
     :class="isScrolled
       ? 'bg-blue-600/95 backdrop-blur-md shadow-md py-1'
       : 'bg-transparent py-2'"
@@ -69,60 +78,91 @@ const links = [
         <!-- Mobile Toggle Button (Min 44x44px Touch Target) -->
         <button
           class="md:hidden min-w-[44px] min-h-[44px] p-2 rounded-xl transition-colors text-white hover:bg-white/20 active:scale-95 flex items-center justify-center cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-          @click="isMobileOpen = !isMobileOpen"
-          :aria-expanded="isMobileOpen"
-          aria-controls="mobile-navigation"
-          aria-label="Toggle navigation menu"
+          @click="isMobileOpen = true"
+          aria-expanded="false"
+          aria-controls="mobile-fullscreen-navigation"
+          aria-label="Open navigation menu"
         >
-          <PhX v-if="isMobileOpen" :size="24" weight="bold" />
-          <PhList v-else :size="24" weight="bold" />
+          <PhList :size="26" weight="bold" />
         </button>
       </div>
     </div>
 
-    <!-- Mobile Navigation Drawer -->
-    <Transition name="slide">
+    <!-- Full-Screen Mobile Navigation Modal -->
+    <Transition name="fullscreen-menu">
       <div
         v-if="isMobileOpen"
-        id="mobile-navigation"
-        class="md:hidden bg-white border-b border-slate-200 shadow-xl"
+        id="mobile-fullscreen-navigation"
+        class="fixed inset-0 z-50 bg-slate-950/98 backdrop-blur-2xl flex flex-col justify-between p-6 sm:p-8 md:hidden"
         role="dialog"
         aria-modal="true"
-        aria-label="Mobile Menu"
+        aria-label="Mobile Navigation"
       >
-        <nav class="max-w-6xl mx-auto px-5 py-5 flex flex-col gap-1.5">
+        <!-- Top Bar with Brand & Close Button -->
+        <div class="flex items-center justify-between pb-6 border-b border-white/10">
+          <div class="flex items-center gap-2.5 select-none">
+            <div class="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20">
+              <PhShieldCheck :size="24" weight="fill" />
+            </div>
+            <span class="text-2xl font-black text-white tracking-tight">
+              DNS<span class="text-blue-400">ly</span>
+            </span>
+          </div>
+
+          <button
+            @click="isMobileOpen = false"
+            class="min-w-[44px] min-h-[44px] p-2.5 rounded-xl bg-white/10 hover:bg-white/20 active:scale-95 text-white flex items-center justify-center transition-all cursor-pointer focus-visible:outline-2 focus-visible:outline-white"
+            aria-label="Close navigation menu"
+          >
+            <PhX :size="24" weight="bold" />
+          </button>
+        </div>
+
+        <!-- Middle: Nav Links (Large & Touchable) -->
+        <nav class="flex flex-col my-auto py-6 space-y-1">
           <a
-            v-for="link in links"
+            v-for="(link, idx) in links"
             :key="link.label"
             :href="link.href"
-            class="px-4 py-3 rounded-xl text-sm font-bold text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center justify-between"
+            class="py-3.5 px-3 rounded-2xl text-2xl sm:text-3xl font-black text-white hover:text-blue-400 hover:bg-white/5 active:scale-[0.98] transition-all flex items-center justify-between group border-b border-white/5 last:border-0"
             @click="isMobileOpen = false"
           >
-            <span>{{ link.label }}</span>
+            <div class="flex items-center gap-3">
+              <span class="text-xs font-mono text-slate-500 font-bold group-hover:text-blue-400 transition-colors">0{{ idx + 1 }}</span>
+              <span>{{ link.label }}</span>
+            </div>
+            <PhArrowRight :size="20" weight="bold" class="text-slate-500 group-hover:text-blue-400 group-hover:translate-x-1 transition-all" />
+          </a>
+        </nav>
+
+        <!-- Bottom: Primary Action Button & Info -->
+        <div class="pt-6 border-t border-white/10 space-y-4">
+          <a
+            href="#download"
+            class="w-full py-4 px-6 rounded-2xl text-center text-sm font-bold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-xl shadow-blue-600/30 active:scale-[0.99] transition-all flex items-center justify-center gap-2.5"
+            @click="isMobileOpen = false"
+          >
+            <PhDownloadSimple :size="20" weight="bold" />
+            <span>Download Android APK</span>
           </a>
 
-          <div class="pt-3 mt-2 border-t border-slate-100 flex flex-col gap-2.5">
-            <a
-              href="#download"
-              class="w-full py-3.5 px-4 rounded-xl text-center text-xs font-bold text-white bg-blue-600 hover:bg-blue-500 shadow-md shadow-blue-500/25 transition-all flex items-center justify-center gap-2"
-              @click="isMobileOpen = false"
-            >
-              <PhDownloadSimple :size="16" weight="bold" />
-              <span>Download APK</span>
-            </a>
+          <div class="text-center text-xs text-slate-500 font-medium">
+            On-Device DNS Privacy & Threat Firewall
           </div>
-        </nav>
+        </div>
       </div>
     </Transition>
   </header>
 </template>
 
 <style scoped>
-.slide-enter-active, .slide-leave-active {
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+.fullscreen-menu-enter-active,
+.fullscreen-menu-leave-active {
+  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.slide-enter-from, .slide-leave-to {
+.fullscreen-menu-enter-from,
+.fullscreen-menu-leave-to {
   opacity: 0;
-  transform: translateY(-8px);
+  transform: scale(0.98);
 }
 </style>
