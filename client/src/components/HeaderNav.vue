@@ -52,9 +52,11 @@ const links = [
         class="flex items-center gap-2.5 no-underline group select-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white rounded-xl p-1"
         aria-label="DNSly Home"
       >
-        <div class="w-9 h-9 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center border border-white/30 group-hover:bg-white/30 transition-all shadow-xs text-white">
-          <PhShieldCheck :size="22" weight="fill" />
-        </div>
+        <img
+          src="/logo.png"
+          alt="DNSly Logo"
+          class="w-9 h-9 rounded-xl object-contain shadow-xs group-hover:scale-105 transition-transform"
+        />
         <span class="text-xl font-black tracking-tight text-white">
           DNS<span class="text-blue-200">ly</span>
         </span>

@@ -22,10 +22,45 @@ async function bootstrap() {
     }),
   );
 
-  // Enable CORS for mobile app requests and web dashboards
+  // Security Headers Middleware
+  app.use((req: any, res: any, next: any) => {
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+    res.setHeader('X-XSS-Protection', '1; mode=block');
+    res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+    next();
+  });
+
+  // Dynamic CORS origin whitelist: supports localhost, custom configured origin, and production domains
+  const allowedOriginsEnv = process.env.CORS_ALLOWED_ORIGINS || '';
+  const parsedAllowedOrigins = allowedOriginsEnv
+    .split(',')
+    .map((o) => o.trim())
+    .filter(Boolean);
+
   app.enableCors({
-    origin: true,
+    origin: (origin, callback) => {
+      // Allow requests with no origin (e.g. mobile apps, curl, native HTTP clients)
+      if (!origin) return callback(null, true);
+
+      // Check if origin matches localhost, 127.0.0.1, or local networks
+      const isLocalhost = /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin);
+      // Check if origin matches production domains or explicitly allowed origins
+      const isConfigured = parsedAllowedOrigins.includes(origin);
+      const isDefaultAllowed =
+        origin.endsWith('dnsly.app') ||
+        origin.endsWith('shovon.bd') ||
+        origin.endsWith('.vercel.app');
+
+      if (isLocalhost || isConfigured || isDefaultAllowed || process.env.NODE_ENV !== 'production') {
+        callback(null, true);
+      } else {
+        callback(new Error(`Origin ${origin} not allowed by CORS policy`));
+      }
+    },
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'x-api-key', 'X-Requested-With'],
   });
 
   // OpenAPI Specification for Scalar Reference

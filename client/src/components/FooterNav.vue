@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { PhShieldCheck } from '@phosphor-icons/vue'
 </script>
 
 <template>
@@ -9,9 +8,11 @@ import { PhShieldCheck } from '@phosphor-icons/vue'
         <!-- Brand Column -->
         <div class="max-w-md">
           <a href="/" class="inline-flex items-center gap-2.5 mb-3.5 no-underline select-none" aria-label="DNSly Home">
-            <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center shadow-xs text-white">
-              <PhShieldCheck :size="22" weight="fill" />
-            </div>
+            <img
+              src="/logo.png"
+              alt="DNSly Logo"
+              class="w-9 h-9 rounded-xl object-contain shadow-xs"
+            />
             <span class="text-xl font-black text-slate-900 tracking-tight">
               DNS<span class="text-blue-600">ly</span>
             </span>

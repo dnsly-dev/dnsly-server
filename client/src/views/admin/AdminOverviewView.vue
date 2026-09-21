@@ -383,13 +383,13 @@ const svgAreaPath = computed(() => {
               <div class="flex items-center justify-between text-xs">
                 <span class="font-bold text-slate-800">{{ provider || 'Default Upstream' }}</span>
                 <span class="font-mono text-slate-500 font-semibold">
-                  {{ count }} clients ({{ ((count / metrics.devices.total) * 100).toFixed(0) }}%)
+                  {{ count }} clients ({{ metrics.devices?.total ? ((count / metrics.devices.total) * 100).toFixed(0) : 0 }}%)
                 </span>
               </div>
               <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
                 <div
                   class="h-full rounded-full bg-gradient-to-r from-blue-500 to-indigo-600"
-                  :style="{ width: `${Math.min(((count / metrics.devices.total) * 100), 100)}%` }"
+                  :style="{ width: `${metrics.devices?.total ? Math.min(((count / metrics.devices.total) * 100), 100) : 0}%` }"
                 ></div>
               </div>
             </div>

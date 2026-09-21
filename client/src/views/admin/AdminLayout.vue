@@ -3,7 +3,6 @@ import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useAuth } from '../../composables/useAuth'
 import {
-  PhShieldCheck,
   PhChartPieSlice,
   PhDeviceMobile,
   PhGlobeHemisphereWest,
@@ -59,9 +58,11 @@ const handleLogout = async () => {
         </button>
 
         <router-link to="/admin" class="flex items-center gap-2.5 no-underline group select-none">
-          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center shadow-md shadow-blue-500/20 text-white">
-            <PhShieldCheck :size="22" weight="fill" />
-          </div>
+          <img
+            src="/logo.png"
+            alt="DNSly Logo"
+            class="w-9 h-9 rounded-xl object-contain shadow-xs"
+          />
           <div class="flex items-center gap-1.5">
             <span class="text-xl font-black tracking-tight text-slate-900">DNS<span class="text-blue-600">ly</span></span>
             <span class="px-1.5 py-0.5 rounded text-[10px] font-extrabold uppercase tracking-wider bg-blue-500 text-white">UI</span>

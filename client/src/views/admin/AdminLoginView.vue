@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useAuth } from '../../composables/useAuth'
-import { PhShieldCheck, PhLockKey, PhEnvelope, PhArrowRight, PhGearSix, PhCircleNotch } from '@phosphor-icons/vue'
+import { PhLockKey, PhEnvelope, PhArrowRight, PhGearSix, PhCircleNotch } from '@phosphor-icons/vue'
 
 const { login, isLoading, error } = useAuth()
 
-const email = ref('admin@dnsly.app')
-const password = ref('Admin@DNSly2026')
+const email = ref('')
+const password = ref('')
 const showApiConfig = ref(false)
 const customApiUrl = ref(localStorage.getItem('dnsly_api_base_url') || 'https://dnsly.shovon.bd')
 
@@ -32,9 +32,11 @@ const quickSetUrl = (url: string) => {
       <!-- Logo Header -->
       <div class="text-center mb-8">
         <router-link to="/" class="inline-flex items-center gap-2.5 no-underline group mb-3">
-          <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-blue-500/25 text-white group-hover:scale-105 transition-transform">
-            <PhShieldCheck :size="26" weight="fill" />
-          </div>
+          <img
+            src="/logo.png"
+            alt="DNSly Logo"
+            class="w-11 h-11 rounded-2xl object-contain shadow-lg shadow-blue-500/25 group-hover:scale-105 transition-transform"
+          />
           <div class="flex items-center gap-1.5">
             <span class="text-2xl font-black tracking-tight text-slate-900">DNS<span class="text-blue-600">ly</span></span>
             <span class="px-1.5 py-0.5 rounded text-[10px] font-extrabold uppercase tracking-wider bg-blue-500 text-white">UI</span>
@@ -64,7 +66,7 @@ const quickSetUrl = (url: string) => {
                 v-model="email"
                 type="email"
                 required
-                placeholder="admin@dnsly.app"
+                placeholder="name@company.com"
                 class="w-full pl-9 pr-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-xs focus:outline-none focus:border-blue-500 focus:bg-white transition-all placeholder:text-slate-400"
               />
             </div>

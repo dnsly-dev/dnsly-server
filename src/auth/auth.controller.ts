@@ -1,5 +1,6 @@
 import { Controller, Post, Get, Body, Res, Req, HttpCode, HttpStatus, UseGuards } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
+import { Throttle } from '@nestjs/throttler';
 import { AuthService } from './auth.service';
 import { AdminLoginDto } from './dto/login.dto';
 import { JwtAuthGuard } from './jwt-auth.guard';
@@ -11,8 +12,9 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post('login')
+  @Throttle({ default: { limit: 10, ttl: 60000 } })
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: 'Admin login endpoint with HttpOnly cookie session' })
+  @ApiOperation({ summary: 'Admin login endpoint with HttpOnly cookie session (rate-limited)' })
   @ApiResponse({ status: 200, description: 'Authentication successful, sets admin_token cookie and returns user profile' })
   async login(@Body() loginDto: AdminLoginDto, @Res({ passthrough: true }) response: Response) {
     const result = await this.authService.login(loginDto);

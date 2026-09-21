@@ -126,6 +126,20 @@ export class AnalyticsService {
       ];
     }
 
+    const heartbeatFilter: any = {};
+    if (shieldEnabled === 'true') {
+      heartbeatFilter.shieldEnabled = true;
+    } else if (shieldEnabled === 'false') {
+      heartbeatFilter.shieldEnabled = false;
+    }
+    if (provider && provider.trim()) {
+      heartbeatFilter.selectedProvider = { contains: provider.trim(), mode: 'insensitive' };
+    }
+
+    if (Object.keys(heartbeatFilter).length > 0) {
+      where.heartbeats = { some: heartbeatFilter };
+    }
+
     try {
       const [total, devices] = await Promise.all([
         this.prisma.device.count({ where }),
@@ -143,7 +157,7 @@ export class AnalyticsService {
         }),
       ]);
 
-      let filteredDevices = (devices || []).map((d) => ({
+      const formattedDevices = (devices || []).map((d) => ({
         id: d.id,
         appVersion: d.appVersion,
         deviceModel: d.deviceModel || 'Unknown Device',
@@ -155,22 +169,12 @@ export class AnalyticsService {
         lastHeartbeat: d.heartbeats?.[0] || null,
       }));
 
-      if (shieldEnabled === 'true') {
-        filteredDevices = filteredDevices.filter((d) => d.lastHeartbeat?.shieldEnabled === true);
-      } else if (shieldEnabled === 'false') {
-        filteredDevices = filteredDevices.filter((d) => d.lastHeartbeat?.shieldEnabled === false);
-      }
-
-      if (provider && provider.trim()) {
-        filteredDevices = filteredDevices.filter((d) => d.lastHeartbeat?.selectedProvider?.toLowerCase() === provider.trim().toLowerCase());
-      }
-
       return {
         total: total || 0,
         page: validPage,
         limit: validLimit,
         totalPages: Math.ceil((total || 0) / validLimit),
-        devices: filteredDevices,
+        devices: formattedDevices,
       };
     } catch (err: any) {
       console.error('AnalyticsService.getDevicesList error:', err);
