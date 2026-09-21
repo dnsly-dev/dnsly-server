@@ -47,6 +47,17 @@
               <li><a href="#speed" class="text-slate-600 hover:text-blue-600 transition-colors font-medium">Benchmarks</a></li>
             </ul>
           </div>
+
+          <div>
+            <h3 class="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-900 mb-4">
+              Legal & Privacy
+            </h3>
+            <ul class="space-y-3 text-sm" role="list">
+              <li><router-link to="/privacy" class="text-slate-600 hover:text-blue-600 transition-colors font-medium">Privacy Policy</router-link></li>
+              <li><span class="text-slate-400 font-normal">Terms of Service</span></li>
+              <li><span class="text-slate-400 font-normal">Zero-Log Guarantee</span></li>
+            </ul>
+          </div>
         </div>
       </div>
 
@@ -55,7 +66,9 @@
         <div>
           © {{ new Date().getFullYear() }} DNSly. All rights reserved.
         </div>
-        <div>
+        <div class="flex items-center gap-4">
+          <router-link to="/privacy" class="text-slate-600 hover:text-blue-600 transition-colors">Privacy Policy</router-link>
+          <span>•</span>
           <span>On-Device Privacy & Security</span>
         </div>
       </div>

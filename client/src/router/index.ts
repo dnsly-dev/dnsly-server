@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 import LandingView from '../views/LandingView.vue'
+import PrivacyPolicyView from '../views/PrivacyPolicyView.vue'
 import AdminLoginView from '../views/admin/AdminLoginView.vue'
 import AdminLayout from '../views/admin/AdminLayout.vue'
 import AdminOverviewView from '../views/admin/AdminOverviewView.vue'
@@ -13,6 +14,11 @@ const routes: RouteRecordRaw[] = [
     path: '/',
     name: 'landing',
     component: LandingView,
+  },
+  {
+    path: '/privacy',
+    name: 'privacy-policy',
+    component: PrivacyPolicyView,
   },
   {
     path: '/admin/login',
